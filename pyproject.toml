@@ -59,10 +59,10 @@ cli = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/living-twin/living-twin-simulation"
-Repository = "https://github.com/living-twin/living-twin-simulation.git"
-Issues = "https://github.com/living-twin/living-twin-simulation/issues"
-Documentation = "https://living-twin-simulation.readthedocs.io/"
+Homepage = "https://github.com/kpernyer/living-twin-simulation"
+Repository = "https://github.com/kpernyer/living-twin-simulation.git"
+Issues = "https://github.com/kpernyer/living-twin-simulation/issues"
+Documentation = "https://github.com/kpernyer/living-twin-simulation#readme"
 
 [project.scripts]
 simulation = "living_twin_simulation.cli:main"

@@ -16,6 +16,10 @@ The Living Twin Simulation Engine models realistic organizational behavior using
 ### Installation
 
 ```bash
+# Using uv (recommended)
+uv pip install living-twin-simulation
+
+# Or using pip
 pip install living-twin-simulation
 ```
 
@@ -127,14 +131,17 @@ Simple JSON structure required:
 ### Setup
 ```bash
 # Clone repository
-git clone https://github.com/living-twin/living-twin-simulation.git
+git clone https://github.com/kpernyer/living-twin-simulation.git
 cd living-twin-simulation
 
-# Install in development mode
+# Install dependencies with uv (recommended)
+uv pip install -e ".[dev,cli]"
+
+# Or using pip
 pip install -e ".[dev,cli]"
 
 # Run tests
-pytest
+uv run pytest
 ```
 
 ### Architecture
