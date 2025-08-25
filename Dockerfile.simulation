@@ -1,0 +1,43 @@
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies with retry logic
+RUN apt-get update && apt-get install -y \
+    curl \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* \
+    || (sleep 5 && apt-get update && apt-get install -y curl --no-install-recommends && rm -rf /var/lib/apt/lists/*) \
+    || (sleep 10 && apt-get update && apt-get install -y curl --no-install-recommends && rm -rf /var/lib/apt/lists/*)
+
+# Install uv
+RUN pip install uv
+
+# Copy dependency files
+COPY pyproject.toml uv.lock README.md ./
+
+# Install Python dependencies
+RUN uv pip install --system -e ".[dev,cli,api]"
+
+# Copy application code
+COPY src/ ./src/
+COPY cli/ ./cli/
+COPY config/ ./config/
+
+# Create necessary directories
+RUN mkdir -p /app/data /app/logs
+
+# Copy startup script
+COPY scripts/docker-start.sh /app/docker-start.sh
+RUN chmod +x /app/docker-start.sh
+
+# Expose port
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Start the application
+CMD ["/app/docker-start.sh"]

@@ -1,0 +1,20 @@
+services:
+  # Development overrides
+  simulation:
+    environment:
+      - DEBUG=true
+      - LOG_LEVEL=DEBUG
+    volumes:
+      - ./src:/app/src
+      - ./cli:/app/cli
+      - ./config:/app/config
+      - ./data:/app/data
+      - ./logs:/app/logs
+
+  web-interface:
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./web:/app/web
+      - /app/web/node_modules
+    command: npm run dev

@@ -1,0 +1,27 @@
+FROM node:18-alpine
+
+# Install pnpm with retry logic
+RUN npm install -g pnpm@8.15.0 || \
+    (sleep 5 && npm install -g pnpm@8.15.0) || \
+    (sleep 10 && npm install -g pnpm@8.15.0)
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY web/package.json web/pnpm-lock.yaml* ./
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Copy web application
+COPY web/ ./
+
+# Build the application
+RUN pnpm run build
+
+# Expose port
+EXPOSE 3000
+
+# Start the application
+CMD ["pnpm", "start"]

@@ -1,0 +1,21 @@
+services:
+  # Simple test setup without complex dependencies
+  test-simulation:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: living-twin-test-simple
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=true
+      - LOG_LEVEL=DEBUG
+      - ENABLE_AI_PROCESSING=false
+    volumes:
+      - ./src:/app/src
+      - ./cli:/app/cli
+      - ./config:/app/config
+      - ./data:/app/data
+      - ./logs:/app/logs
+    command: ["python", "-m", "uvicorn", "src.living_twin_simulation.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    restart: unless-stopped

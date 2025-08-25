@@ -259,3 +259,110 @@ class OrganizationalMetrics:
     # Friction points
     high_friction_communications: List[str] = field(default_factory=list)  # Communication IDs
     bottleneck_agents: List[str] = field(default_factory=list)  # Agent IDs causing delays
+
+
+@dataclass
+class CatchballCommunication:
+    """Two-way strategic communication with feedback loops."""
+    id: str = field(default_factory=lambda: str(uuid4()))
+    original_communication_id: str = ""
+    sender_id: str = ""
+    recipient_ids: List[str] = field(default_factory=list)
+    subject: str = ""
+    content: str = ""
+    communication_type: CommunicationType = CommunicationType.NUDGE
+    created_at: datetime = field(default_factory=datetime.now)
+    
+    # Catchball-specific fields
+    round_number: int = 1  # Which round of catchball communication
+    max_rounds: int = 3  # Maximum rounds before escalation
+    feedback_received: List['CatchballFeedback'] = field(default_factory=list)
+    consensus_reached: bool = False
+    priority_conflicts: List[str] = field(default_factory=list)  # List of conflicting priorities
+    wisdom_insights: List[str] = field(default_factory=list)  # Collective insights from crowd
+
+
+@dataclass
+class CatchballFeedback:
+    """Feedback from recipients in catchball communication."""
+    id: str = field(default_factory=lambda: str(uuid4()))
+    catchball_id: str = ""
+    agent_id: str = ""
+    department: str = ""
+    role: str = ""
+    
+    # Response content
+    feedback_content: str = ""
+    response_type: ResponseType = ResponseType.TAKE_ACTION
+    
+    # Wisdom of the Crowd indicators
+    response_delay_hours: float = 0.0  # How long it took to respond
+    hesitation_indicators: List[str] = field(default_factory=list)  # "delayed", "uncertain", "conflicted"
+    confidence_level: float = 0.5  # 0.0 (very uncertain) to 1.0 (very confident)
+    
+    # Priority conflict detection
+    priority_conflicts_mentioned: List[str] = field(default_factory=list)
+    competing_priorities: List[str] = field(default_factory=list)
+    resource_constraints: List[str] = field(default_factory=list)
+    
+    # Sentiment and tone analysis
+    sentiment: float = 0.0  # -1.0 (negative) to 1.0 (positive)
+    urgency_level: float = 0.5  # 0.0 (low urgency) to 1.0 (high urgency)
+    commitment_level: float = 0.5  # 0.0 (low commitment) to 1.0 (high commitment)
+    
+    created_at: datetime = field(default_factory=datetime.now)
+
+
+@dataclass
+class WisdomOfTheCrowd:
+    """Aggregated insights from collective responses."""
+    id: str = field(default_factory=lambda: str(uuid4()))
+    catchball_id: str = ""
+    communication_id: str = ""
+    
+    # Collective insights
+    consensus_level: float = 0.0  # 0.0 (no consensus) to 1.0 (full consensus)
+    priority_conflicts_detected: List[str] = field(default_factory=list)
+    resource_bottlenecks: List[str] = field(default_factory=list)
+    hidden_risks: List[str] = field(default_factory=list)
+    opportunities_identified: List[str] = field(default_factory=list)
+    
+    # Response patterns
+    average_response_delay: float = 0.0
+    hesitation_patterns: Dict[str, int] = field(default_factory=dict)  # Pattern -> count
+    confidence_distribution: Dict[str, int] = field(default_factory=dict)  # Confidence level -> count
+    
+    # Department-specific insights
+    department_insights: Dict[str, Dict] = field(default_factory=dict)  # Department -> insights
+    cross_department_conflicts: List[Dict] = field(default_factory=list)
+    
+    # Recommendations for CEO
+    ceo_recommendations: List[str] = field(default_factory=list)
+    escalation_triggers: List[str] = field(default_factory=list)
+    consensus_building_suggestions: List[str] = field(default_factory=list)
+    
+    created_at: datetime = field(default_factory=datetime.now)
+
+
+@dataclass
+class PriorityConflict:
+    """A conflict between competing strategic priorities."""
+    id: str = field(default_factory=lambda: str(uuid4()))
+    conflict_type: str = ""  # "resource", "timeline", "approach", "values"
+    priority_a: str = ""
+    priority_b: str = ""
+    affected_departments: List[str] = field(default_factory=list)
+    severity: float = 0.5  # 0.0 (minor) to 1.0 (critical)
+    resolution_status: str = "unresolved"  # "unresolved", "in_progress", "resolved"
+    
+    # Conflict details
+    description: str = ""
+    impact_assessment: str = ""
+    proposed_resolutions: List[str] = field(default_factory=list)
+    
+    # Stakeholder positions
+    stakeholder_positions: Dict[str, str] = field(default_factory=dict)  # Agent ID -> position
+    escalation_level: int = 1  # How many levels up this has been escalated
+    
+    created_at: datetime = field(default_factory=datetime.now)
+    resolved_at: Optional[datetime] = None

@@ -1,0 +1,60 @@
+# Living Twin Simulation - MCP Configuration
+# Configuration for Model Context Protocol and local LLM integration
+
+mcp:
+  server:
+    host: localhost
+    port: 3000
+    protocol: http
+    timeout: 30
+    retry_attempts: 3
+
+  ollama:
+    host: http://localhost:11434
+    model: mistral:7b-instruct
+    # Alternative models:
+    # - llama2:7b-chat
+    # - codellama:7b-instruct
+    # - openhermes:7b-mistral
+    # - neural-chat:7b
+    # - qwen:7b-chat
+    # - phi:2.7b
+    
+    # Model parameters
+    temperature: 0.7
+    max_tokens: 500
+    top_p: 0.9
+    frequency_penalty: 0.0
+    presence_penalty: 0.0
+    
+    # Connection settings
+    request_timeout: 60
+    max_concurrent_requests: 5
+
+  # AI processing settings
+  ai_processing:
+    enabled: false  # Set to true to use MCP Agent Engine
+    context_window_size: 10  # Number of recent interactions to include
+    company_knowledge_search: true
+    personality_weight: 0.8  # How much personality influences AI responses
+    
+    # Response generation settings
+    response_generation:
+      max_attempts: 3
+      fallback_to_rules: true  # Use rule-based if AI fails
+      confidence_threshold: 0.6  # Minimum confidence for AI response
+
+# Simulation behavior when AI is enabled
+simulation:
+  ai_enhanced:
+    communication_understanding: true
+    contextual_responses: true
+    workload_awareness: true
+    relationship_modeling: true
+    
+    # Response customization
+    response_style:
+      include_reasoning: true
+      include_workload_context: true
+      include_relationship_context: true
+      include_expertise_insights: true

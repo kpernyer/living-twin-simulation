@@ -1,0 +1,69 @@
+services:
+  # Ollama service for local LLM inference
+  ollama:
+    image: ollama/ollama:latest
+    container_name: living-twin-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Simulation engine service
+  simulation:
+    build:
+      context: .
+      dockerfile: Dockerfile.simulation
+    container_name: living-twin-simulation
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - OLLAMA_MODEL=mistral:7b-instruct
+      - ENABLE_AI_PROCESSING=true
+      - LOG_LEVEL=INFO
+      - DEBUG=false
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Interactive web interface
+  web-interface:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: living-twin-web
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web:/app/web
+      - ./data:/app/data:ro
+    environment:
+      - SIMULATION_API_URL=http://simulation:8000
+      - NODE_ENV=production
+    depends_on:
+      simulation:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+    driver: local

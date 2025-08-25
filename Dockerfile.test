@@ -1,0 +1,31 @@
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install minimal dependencies with retry logic
+RUN pip install --no-cache-dir uv || \
+    (sleep 5 && pip install --no-cache-dir uv) || \
+    (sleep 10 && pip install --no-cache-dir uv)
+
+# Copy dependency files
+COPY pyproject.toml uv.lock README.md ./
+
+# Install Python dependencies
+RUN uv pip install --system -e ".[dev,cli,api]" || \
+    (sleep 5 && uv pip install --system -e ".[dev,cli,api]") || \
+    (sleep 10 && uv pip install --system -e ".[dev,cli,api]")
+
+# Copy application code
+COPY src/ ./src/
+COPY cli/ ./cli/
+COPY config/ ./config/
+
+# Create necessary directories
+RUN mkdir -p /app/data /app/logs
+
+# Expose port
+EXPOSE 8000
+
+# Start the application
+CMD ["python", "-m", "uvicorn", "living_twin_simulation.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,0 +1,179 @@
+organization:
+  id: "acme_corp"
+  name: "Acme Corporation"
+  industry: "Technology"
+  size: "Medium"
+  description: "A technology company focused on innovative solutions"
+
+employees:
+  - id: "ceo_001"
+    name: "Sarah Johnson"
+    role: "Chief Executive Officer"
+    department: "Executive"
+    level: "C-Level"
+    email: "sarah.johnson@acme.com"
+    personality_traits:
+      risk_tolerance: 0.7
+      authority_response: 0.9
+      communication_style: 0.8
+      change_adaptability: 0.8
+      workload_sensitivity: 0.6
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Executive"
+      role: "Chief Executive Officer"
+      seniority_level: 5
+      expertise_areas: ["Strategic Planning", "Leadership", "Business Development"]
+      direct_reports: ["cto_001", "cfo_001", "cmo_001"]
+      workload_capacity: 1.0
+      current_workload: 0.8
+
+  - id: "cto_001"
+    name: "Michael Chen"
+    role: "Chief Technology Officer"
+    department: "Technology"
+    level: "C-Level"
+    email: "michael.chen@acme.com"
+    personality_traits:
+      risk_tolerance: 0.6
+      authority_response: 0.8
+      communication_style: 0.6
+      change_adaptability: 0.9
+      workload_sensitivity: 0.5
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Technology"
+      role: "Chief Technology Officer"
+      seniority_level: 5
+      expertise_areas: ["Software Architecture", "AI/ML", "Cloud Infrastructure"]
+      direct_reports: ["eng_mgr_001", "dev_lead_001"]
+      workload_capacity: 1.0
+      current_workload: 0.7
+
+  - id: "cfo_001"
+    name: "Lisa Rodriguez"
+    role: "Chief Financial Officer"
+    department: "Finance"
+    level: "C-Level"
+    email: "lisa.rodriguez@acme.com"
+    personality_traits:
+      risk_tolerance: 0.3
+      authority_response: 0.9
+      communication_style: 0.7
+      change_adaptability: 0.5
+      workload_sensitivity: 0.7
+      collaboration_preference: 0.6
+    professional_profile:
+      department: "Finance"
+      role: "Chief Financial Officer"
+      seniority_level: 5
+      expertise_areas: ["Financial Planning", "Risk Management", "Investor Relations"]
+      direct_reports: ["fin_mgr_001", "accountant_001"]
+      workload_capacity: 1.0
+      current_workload: 0.6
+
+  - id: "cmo_001"
+    name: "David Thompson"
+    role: "Chief Marketing Officer"
+    department: "Marketing"
+    level: "C-Level"
+    email: "david.thompson@acme.com"
+    personality_traits:
+      risk_tolerance: 0.8
+      authority_response: 0.7
+      communication_style: 0.9
+      change_adaptability: 0.8
+      workload_sensitivity: 0.4
+      collaboration_preference: 0.9
+    professional_profile:
+      department: "Marketing"
+      role: "Chief Marketing Officer"
+      seniority_level: 5
+      expertise_areas: ["Digital Marketing", "Brand Strategy", "Customer Acquisition"]
+      direct_reports: ["marketing_mgr_001", "designer_001"]
+      workload_capacity: 1.0
+      current_workload: 0.8
+
+  - id: "eng_mgr_001"
+    name: "Alex Kim"
+    role: "Engineering Manager"
+    department: "Technology"
+    level: "Manager"
+    email: "alex.kim@acme.com"
+    personality_traits:
+      risk_tolerance: 0.5
+      authority_response: 0.8
+      communication_style: 0.7
+      change_adaptability: 0.7
+      workload_sensitivity: 0.6
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Technology"
+      role: "Engineering Manager"
+      seniority_level: 4
+      expertise_areas: ["Team Leadership", "Agile Development", "Technical Architecture"]
+      direct_reports: ["senior_dev_001", "dev_001", "qa_001"]
+      manager_id: "cto_001"
+      workload_capacity: 0.9
+      current_workload: 0.7
+
+  - id: "fin_mgr_001"
+    name: "Emma Wilson"
+    role: "Finance Manager"
+    department: "Finance"
+    level: "Manager"
+    email: "emma.wilson@acme.com"
+    personality_traits:
+      risk_tolerance: 0.4
+      authority_response: 0.9
+      communication_style: 0.6
+      change_adaptability: 0.6
+      workload_sensitivity: 0.7
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Finance"
+      role: "Finance Manager"
+      seniority_level: 4
+      expertise_areas: ["Budget Management", "Financial Analysis", "Compliance"]
+      direct_reports: ["accountant_001", "analyst_001"]
+      manager_id: "cfo_001"
+      workload_capacity: 0.9
+      current_workload: 0.6
+
+strategic_goals:
+  - id: "sg_001"
+    title: "Market Expansion"
+    description: "Expand into European markets within 18 months"
+    priority: "high"
+    target_date: "2025-12-31"
+    success_metrics:
+      - "Revenue growth of 25%"
+      - "Market share increase of 15%"
+      - "Customer acquisition in 3 new countries"
+
+  - id: "sg_002"
+    title: "Product Innovation"
+    description: "Launch AI-powered features to increase customer retention"
+    priority: "high"
+    target_date: "2025-06-30"
+    success_metrics:
+      - "Customer retention rate of 95%"
+      - "Feature adoption rate of 80%"
+      - "Customer satisfaction score of 4.5/5"
+
+  - id: "sg_003"
+    title: "Employee Satisfaction"
+    description: "Improve employee satisfaction and reduce turnover"
+    priority: "medium"
+    target_date: "2025-09-30"
+    success_metrics:
+      - "Employee satisfaction score of 4.2/5"
+      - "Turnover rate below 10%"
+      - "Employee engagement score of 85%"
+
+simulation_parameters:
+  time_acceleration_factor: 144  # 1 real minute = 1 simulation day
+  communication_frequency: 0.3   # Probability of spontaneous communications
+  response_delay_range: [1, 24]  # Hours range for response delays
+  stress_threshold: 0.8          # Workload level that triggers stress
+  collaboration_bonus: 0.2       # Performance boost from collaboration

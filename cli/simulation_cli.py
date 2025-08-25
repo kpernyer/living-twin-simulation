@@ -256,18 +256,77 @@ def example():
     """Generate example employee data file."""
     
     example_data = {
+        # Executive Leadership
         "ceo@company.com": {
             "department": "Executive",
             "role": "CEO"
         },
+        "cfo@company.com": {
+            "department": "Finance",
+            "role": "CFO"
+        },
+        "cto@company.com": {
+            "department": "Technology",
+            "role": "CTO"
+        },
+        "chro@company.com": {
+            "department": "Human Resources",
+            "role": "CHRO"
+        },
+        "cmo@company.com": {
+            "department": "Marketing",
+            "role": "CMO"
+        },
+        
+        # VP Level - Strategic Decision Makers
         "vp.engineering@company.com": {
             "department": "Engineering", 
             "role": "VP Engineering"
         },
+        "vp.sales@company.com": {
+            "department": "Sales",
+            "role": "VP Sales"
+        },
+        "vp.product@company.com": {
+            "department": "Product",
+            "role": "VP Product"
+        },
+        "vp.operations@company.com": {
+            "department": "Operations",
+            "role": "VP Operations"
+        },
+        
+        # Department Managers - Implementation Leaders
         "engineering.manager@company.com": {
             "department": "Engineering",
             "role": "Engineering Manager"
         },
+        "sales.manager@company.com": {
+            "department": "Sales",
+            "role": "Sales Manager"
+        },
+        "product.manager@company.com": {
+            "department": "Product",
+            "role": "Product Manager"
+        },
+        "hr.manager@company.com": {
+            "department": "Human Resources",
+            "role": "HR Manager"
+        },
+        "finance.manager@company.com": {
+            "department": "Finance",
+            "role": "Finance Manager"
+        },
+        "marketing.manager@company.com": {
+            "department": "Marketing",
+            "role": "Marketing Manager"
+        },
+        "operations.manager@company.com": {
+            "department": "Operations",
+            "role": "Operations Manager"
+        },
+        
+        # Individual Contributors - Execution Level
         "john.doe@company.com": {
             "department": "Engineering",
             "role": "Senior Engineer"
@@ -276,13 +335,29 @@ def example():
             "department": "Engineering", 
             "role": "Engineer"
         },
-        "sales.manager@company.com": {
-            "department": "Sales",
-            "role": "Sales Manager"
-        },
         "sales.rep@company.com": {
             "department": "Sales",
             "role": "Sales Representative"
+        },
+        "marketing.specialist@company.com": {
+            "department": "Marketing",
+            "role": "Marketing Specialist"
+        },
+        "hr.specialist@company.com": {
+            "department": "Human Resources",
+            "role": "HR Specialist"
+        },
+        "financial.analyst@company.com": {
+            "department": "Finance",
+            "role": "Financial Analyst"
+        },
+        "operations.specialist@company.com": {
+            "department": "Operations",
+            "role": "Operations Specialist"
+        },
+        "product.analyst@company.com": {
+            "department": "Product",
+            "role": "Product Analyst"
         }
     }
     
@@ -290,9 +365,21 @@ def example():
     with open(output_file, 'w') as f:
         json.dump(example_data, f, indent=2)
     
-    console.print(f"[green]Example employee data created: {output_file}[/green]")
+    console.print(f"[green]Enhanced example employee data created: {output_file}[/green]")
+    console.print(f"[blue]Total employees: {len(example_data)}[/blue]")
+    console.print("\n[blue]Departments included:[/blue]")
+    departments = set(emp["department"] for emp in example_data.values())
+    for dept in sorted(departments):
+        count = sum(1 for emp in example_data.values() if emp["department"] == dept)
+        console.print(f"  • {dept}: {count} employees")
+    
     console.print("\n[blue]Usage:[/blue]")
-    console.print(f"simulation run --org-id acme_corp --employees {output_file}")
+    console.print(f"uv run python cli/simulation_cli.py run --org-id acme_corp --employees {output_file}")
+    console.print("\n[blue]Test scenarios available:[/blue]")
+    console.print("  • Growth Target Cascade (Executive + VPs)")
+    console.print("  • Employee Satisfaction Priority (HR + Managers)")
+    console.print("  • Market Expansion Strategy (All departments)")
+    console.print("  • Innovation vs. Stability (Technology + Engineering)")
 
 
 def main():

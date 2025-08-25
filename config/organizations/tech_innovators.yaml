@@ -1,0 +1,712 @@
+organization:
+  id: "tech_innovators"
+  name: "Tech Innovators Inc."
+  industry: "Technology"
+  size: "Large"
+  description: "A rapidly growing technology company specializing in AI, cloud computing, and digital transformation solutions"
+
+employees:
+  - id: "ceo_001"
+    name: "Jennifer Martinez"
+    role: "Chief Executive Officer"
+    department: "Executive"
+    level: "C-Level"
+    email: "jennifer.martinez@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.8
+      authority_response: 0.9
+      communication_style: 0.9
+      change_adaptability: 0.9
+      workload_sensitivity: 0.4
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Executive"
+      role: "Chief Executive Officer"
+      seniority_level: 5
+      expertise_areas: ["Strategic Planning", "Leadership", "Business Development", "Investor Relations"]
+      direct_reports: ["cto_001", "cfo_001", "cmo_001", "chro_001", "cco_001"]
+      workload_capacity: 1.0
+      current_workload: 0.9
+
+  - id: "cto_001"
+    name: "Raj Patel"
+    role: "Chief Technology Officer"
+    department: "Technology"
+    level: "C-Level"
+    email: "raj.patel@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.7
+      authority_response: 0.8
+      communication_style: 0.7
+      change_adaptability: 0.9
+      workload_sensitivity: 0.5
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Technology"
+      role: "Chief Technology Officer"
+      seniority_level: 5
+      expertise_areas: ["Software Architecture", "AI/ML", "Cloud Infrastructure", "DevOps"]
+      direct_reports: ["vp_eng_001", "vp_data_001", "vp_platform_001"]
+      workload_capacity: 1.0
+      current_workload: 0.8
+
+  - id: "cfo_001"
+    name: "Michael Thompson"
+    role: "Chief Financial Officer"
+    department: "Finance"
+    level: "C-Level"
+    email: "michael.thompson@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.3
+      authority_response: 0.9
+      communication_style: 0.8
+      change_adaptability: 0.6
+      workload_sensitivity: 0.7
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Finance"
+      role: "Chief Financial Officer"
+      seniority_level: 5
+      expertise_areas: ["Financial Planning", "Risk Management", "Investor Relations", "M&A"]
+      direct_reports: ["vp_finance_001", "controller_001", "treasurer_001"]
+      workload_capacity: 1.0
+      current_workload: 0.7
+
+  - id: "cmo_001"
+    name: "Sarah Chen"
+    role: "Chief Marketing Officer"
+    department: "Marketing"
+    level: "C-Level"
+    email: "sarah.chen@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.8
+      authority_response: 0.7
+      communication_style: 0.9
+      change_adaptability: 0.8
+      workload_sensitivity: 0.4
+      collaboration_preference: 0.9
+    professional_profile:
+      department: "Marketing"
+      role: "Chief Marketing Officer"
+      seniority_level: 5
+      expertise_areas: ["Digital Marketing", "Brand Strategy", "Customer Acquisition", "Product Marketing"]
+      direct_reports: ["vp_marketing_001", "vp_demand_gen_001", "brand_director_001"]
+      workload_capacity: 1.0
+      current_workload: 0.8
+
+  - id: "chro_001"
+    name: "Lisa Rodriguez"
+    role: "Chief Human Resources Officer"
+    department: "Human Resources"
+    level: "C-Level"
+    email: "lisa.rodriguez@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.4
+      authority_response: 0.8
+      communication_style: 0.8
+      change_adaptability: 0.7
+      workload_sensitivity: 0.6
+      collaboration_preference: 0.9
+    professional_profile:
+      department: "Human Resources"
+      role: "Chief Human Resources Officer"
+      seniority_level: 5
+      expertise_areas: ["Talent Acquisition", "Employee Development", "Culture Building", "Compensation"]
+      direct_reports: ["vp_hr_001", "talent_director_001", "hr_ops_director_001"]
+      workload_capacity: 1.0
+      current_workload: 0.7
+
+  - id: "cco_001"
+    name: "David Kim"
+    role: "Chief Customer Officer"
+    department: "Customer Success"
+    level: "C-Level"
+    email: "david.kim@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.6
+      authority_response: 0.8
+      communication_style: 0.9
+      change_adaptability: 0.8
+      workload_sensitivity: 0.5
+      collaboration_preference: 0.9
+    professional_profile:
+      department: "Customer Success"
+      role: "Chief Customer Officer"
+      seniority_level: 5
+      expertise_areas: ["Customer Experience", "Customer Success", "Support Operations", "Customer Advocacy"]
+      direct_reports: ["vp_customer_success_001", "vp_support_001", "customer_advocacy_director_001"]
+      workload_capacity: 1.0
+      current_workload: 0.8
+
+  # Technology Department - VP Level
+  - id: "vp_eng_001"
+    name: "Alex Johnson"
+    role: "Vice President of Engineering"
+    department: "Technology"
+    level: "VP"
+    email: "alex.johnson@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.6
+      authority_response: 0.8
+      communication_style: 0.7
+      change_adaptability: 0.8
+      workload_sensitivity: 0.5
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Technology"
+      role: "Vice President of Engineering"
+      seniority_level: 4
+      expertise_areas: ["Software Development", "Team Leadership", "Technical Architecture", "Agile Development"]
+      direct_reports: ["eng_director_001", "qa_director_001", "devops_director_001"]
+      manager_id: "cto_001"
+      workload_capacity: 0.9
+      current_workload: 0.7
+
+  - id: "vp_data_001"
+    name: "Priya Sharma"
+    role: "Vice President of Data Science"
+    department: "Technology"
+    level: "VP"
+    email: "priya.sharma@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.7
+      authority_response: 0.7
+      communication_style: 0.6
+      change_adaptability: 0.9
+      workload_sensitivity: 0.4
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Technology"
+      role: "Vice President of Data Science"
+      seniority_level: 4
+      expertise_areas: ["Machine Learning", "Data Engineering", "Analytics", "AI Strategy"]
+      direct_reports: ["ml_director_001", "data_eng_director_001", "analytics_director_001"]
+      manager_id: "cto_001"
+      workload_capacity: 0.9
+      current_workload: 0.8
+
+  - id: "vp_platform_001"
+    name: "Chris Wilson"
+    role: "Vice President of Platform Engineering"
+    department: "Technology"
+    level: "VP"
+    email: "chris.wilson@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.5
+      authority_response: 0.8
+      communication_style: 0.6
+      change_adaptability: 0.8
+      workload_sensitivity: 0.6
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Technology"
+      role: "Vice President of Platform Engineering"
+      seniority_level: 4
+      expertise_areas: ["Cloud Architecture", "Infrastructure", "Security", "Scalability"]
+      direct_reports: ["platform_director_001", "security_director_001", "infra_director_001"]
+      manager_id: "cto_001"
+      workload_capacity: 0.9
+      current_workload: 0.6
+
+  # Finance Department - VP Level
+  - id: "vp_finance_001"
+    name: "Emily Davis"
+    role: "Vice President of Finance"
+    department: "Finance"
+    level: "VP"
+    email: "emily.davis@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.3
+      authority_response: 0.9
+      communication_style: 0.7
+      change_adaptability: 0.5
+      workload_sensitivity: 0.7
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Finance"
+      role: "Vice President of Finance"
+      seniority_level: 4
+      expertise_areas: ["Financial Planning", "Budgeting", "Financial Analysis", "Compliance"]
+      direct_reports: ["fp_a_director_001", "accounting_director_001", "compliance_director_001"]
+      manager_id: "cfo_001"
+      workload_capacity: 0.9
+      current_workload: 0.7
+
+  # Marketing Department - VP Level
+  - id: "vp_marketing_001"
+    name: "Marcus Brown"
+    role: "Vice President of Marketing"
+    department: "Marketing"
+    level: "VP"
+    email: "marcus.brown@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.7
+      authority_response: 0.7
+      communication_style: 0.8
+      change_adaptability: 0.8
+      workload_sensitivity: 0.4
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Marketing"
+      role: "Vice President of Marketing"
+      seniority_level: 4
+      expertise_areas: ["Product Marketing", "Content Strategy", "Brand Management", "Marketing Operations"]
+      direct_reports: ["product_marketing_director_001", "content_director_001", "marketing_ops_director_001"]
+      manager_id: "cmo_001"
+      workload_capacity: 0.9
+      current_workload: 0.8
+
+  # Human Resources Department - VP Level
+  - id: "vp_hr_001"
+    name: "Amanda Foster"
+    role: "Vice President of Human Resources"
+    department: "Human Resources"
+    level: "VP"
+    email: "amanda.foster@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.4
+      authority_response: 0.8
+      communication_style: 0.8
+      change_adaptability: 0.7
+      workload_sensitivity: 0.6
+      collaboration_preference: 0.9
+    professional_profile:
+      department: "Human Resources"
+      role: "Vice President of Human Resources"
+      seniority_level: 4
+      expertise_areas: ["Talent Management", "Employee Relations", "HR Strategy", "Organizational Development"]
+      direct_reports: ["talent_acquisition_director_001", "hr_business_partner_director_001", "learning_director_001"]
+      manager_id: "chro_001"
+      workload_capacity: 0.9
+      current_workload: 0.7
+
+  # Customer Success Department - VP Level
+  - id: "vp_customer_success_001"
+    name: "Rachel Green"
+    role: "Vice President of Customer Success"
+    department: "Customer Success"
+    level: "VP"
+    email: "rachel.green@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.6
+      authority_response: 0.8
+      communication_style: 0.9
+      change_adaptability: 0.8
+      workload_sensitivity: 0.5
+      collaboration_preference: 0.9
+    professional_profile:
+      department: "Customer Success"
+      role: "Vice President of Customer Success"
+      seniority_level: 4
+      expertise_areas: ["Customer Success", "Customer Experience", "Onboarding", "Customer Retention"]
+      direct_reports: ["customer_success_director_001", "onboarding_director_001", "customer_experience_director_001"]
+      manager_id: "cco_001"
+      workload_capacity: 0.9
+      current_workload: 0.8
+
+  # Director Level - Engineering
+  - id: "eng_director_001"
+    name: "Tom Anderson"
+    role: "Director of Engineering"
+    department: "Technology"
+    level: "Director"
+    email: "tom.anderson@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.5
+      authority_response: 0.8
+      communication_style: 0.6
+      change_adaptability: 0.7
+      workload_sensitivity: 0.6
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Technology"
+      role: "Director of Engineering"
+      seniority_level: 3
+      expertise_areas: ["Software Development", "Team Leadership", "Technical Architecture", "Code Quality"]
+      direct_reports: ["senior_eng_mgr_001", "backend_eng_mgr_001", "frontend_eng_mgr_001"]
+      manager_id: "vp_eng_001"
+      workload_capacity: 0.8
+      current_workload: 0.7
+
+  - id: "qa_director_001"
+    name: "Sophie Lee"
+    role: "Director of Quality Assurance"
+    department: "Technology"
+    level: "Director"
+    email: "sophie.lee@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.3
+      authority_response: 0.8
+      communication_style: 0.7
+      change_adaptability: 0.6
+      workload_sensitivity: 0.7
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Technology"
+      role: "Director of Quality Assurance"
+      seniority_level: 3
+      expertise_areas: ["Test Automation", "Quality Processes", "Performance Testing", "Security Testing"]
+      direct_reports: ["qa_mgr_001", "automation_mgr_001", "performance_mgr_001"]
+      manager_id: "vp_eng_001"
+      workload_capacity: 0.8
+      current_workload: 0.6
+
+  # Director Level - Data Science
+  - id: "ml_director_001"
+    name: "Kevin Zhang"
+    role: "Director of Machine Learning"
+    department: "Technology"
+    level: "Director"
+    email: "kevin.zhang@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.7
+      authority_response: 0.7
+      communication_style: 0.6
+      change_adaptability: 0.9
+      workload_sensitivity: 0.4
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Technology"
+      role: "Director of Machine Learning"
+      seniority_level: 3
+      expertise_areas: ["Machine Learning", "Deep Learning", "AI Models", "MLOps"]
+      direct_reports: ["ml_eng_mgr_001", "data_scientist_mgr_001", "mlops_mgr_001"]
+      manager_id: "vp_data_001"
+      workload_capacity: 0.8
+      current_workload: 0.8
+
+  # Director Level - Finance
+  - id: "fp_a_director_001"
+    name: "Jessica White"
+    role: "Director of Financial Planning & Analysis"
+    department: "Finance"
+    level: "Director"
+    email: "jessica.white@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.4
+      authority_response: 0.9
+      communication_style: 0.7
+      change_adaptability: 0.6
+      workload_sensitivity: 0.7
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Finance"
+      role: "Director of Financial Planning & Analysis"
+      seniority_level: 3
+      expertise_areas: ["Financial Planning", "Budgeting", "Financial Modeling", "Business Intelligence"]
+      direct_reports: ["fp_a_mgr_001", "budget_mgr_001", "bi_mgr_001"]
+      manager_id: "vp_finance_001"
+      workload_capacity: 0.8
+      current_workload: 0.7
+
+  # Director Level - Marketing
+  - id: "product_marketing_director_001"
+    name: "Daniel Kim"
+    role: "Director of Product Marketing"
+    department: "Marketing"
+    level: "Director"
+    email: "daniel.kim@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.6
+      authority_response: 0.7
+      communication_style: 0.8
+      change_adaptability: 0.8
+      workload_sensitivity: 0.5
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Marketing"
+      role: "Director of Product Marketing"
+      seniority_level: 3
+      expertise_areas: ["Product Marketing", "Go-to-Market Strategy", "Competitive Analysis", "Market Research"]
+      direct_reports: ["product_marketing_mgr_001", "gtm_mgr_001", "competitive_mgr_001"]
+      manager_id: "vp_marketing_001"
+      workload_capacity: 0.8
+      current_workload: 0.8
+
+  # Director Level - HR
+  - id: "talent_acquisition_director_001"
+    name: "Maria Garcia"
+    role: "Director of Talent Acquisition"
+    department: "Human Resources"
+    level: "Director"
+    email: "maria.garcia@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.5
+      authority_response: 0.8
+      communication_style: 0.8
+      change_adaptability: 0.7
+      workload_sensitivity: 0.6
+      collaboration_preference: 0.9
+    professional_profile:
+      department: "Human Resources"
+      role: "Director of Talent Acquisition"
+      seniority_level: 3
+      expertise_areas: ["Recruitment", "Talent Sourcing", "Employer Branding", "Diversity & Inclusion"]
+      direct_reports: ["recruitment_mgr_001", "sourcing_mgr_001", "diversity_mgr_001"]
+      manager_id: "vp_hr_001"
+      workload_capacity: 0.8
+      current_workload: 0.7
+
+  # Director Level - Customer Success
+  - id: "customer_success_director_001"
+    name: "Ryan O'Connor"
+    role: "Director of Customer Success"
+    department: "Customer Success"
+    level: "Director"
+    email: "ryan.oconnor@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.6
+      authority_response: 0.8
+      communication_style: 0.9
+      change_adaptability: 0.8
+      workload_sensitivity: 0.5
+      collaboration_preference: 0.9
+    professional_profile:
+      department: "Customer Success"
+      role: "Director of Customer Success"
+      seniority_level: 3
+      expertise_areas: ["Customer Success", "Account Management", "Customer Retention", "Success Metrics"]
+      direct_reports: ["customer_success_mgr_001", "account_mgr_001", "retention_mgr_001"]
+      manager_id: "vp_customer_success_001"
+      workload_capacity: 0.8
+      current_workload: 0.8
+
+  # Manager Level - Engineering
+  - id: "senior_eng_mgr_001"
+    name: "Alex Rivera"
+    role: "Senior Engineering Manager"
+    department: "Technology"
+    level: "Manager"
+    email: "alex.rivera@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.5
+      authority_response: 0.8
+      communication_style: 0.7
+      change_adaptability: 0.7
+      workload_sensitivity: 0.6
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Technology"
+      role: "Senior Engineering Manager"
+      seniority_level: 2
+      expertise_areas: ["Team Leadership", "Software Development", "Agile Development", "Technical Mentoring"]
+      direct_reports: ["senior_dev_001", "dev_001", "junior_dev_001"]
+      manager_id: "eng_director_001"
+      workload_capacity: 0.7
+      current_workload: 0.6
+
+  - id: "backend_eng_mgr_001"
+    name: "Sarah Williams"
+    role: "Backend Engineering Manager"
+    department: "Technology"
+    level: "Manager"
+    email: "sarah.williams@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.4
+      authority_response: 0.8
+      communication_style: 0.6
+      change_adaptability: 0.7
+      workload_sensitivity: 0.6
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Technology"
+      role: "Backend Engineering Manager"
+      seniority_level: 2
+      expertise_areas: ["Backend Development", "API Design", "Database Design", "System Architecture"]
+      direct_reports: ["backend_dev_001", "api_dev_001", "db_dev_001"]
+      manager_id: "eng_director_001"
+      workload_capacity: 0.7
+      current_workload: 0.7
+
+  # Individual Contributors - Senior Level
+  - id: "senior_dev_001"
+    name: "Mike Johnson"
+    role: "Senior Software Engineer"
+    department: "Technology"
+    level: "Senior"
+    email: "mike.johnson@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.6
+      authority_response: 0.6
+      communication_style: 0.5
+      change_adaptability: 0.8
+      workload_sensitivity: 0.5
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Technology"
+      role: "Senior Software Engineer"
+      seniority_level: 1
+      expertise_areas: ["Full Stack Development", "JavaScript", "Python", "React", "Node.js"]
+      manager_id: "senior_eng_mgr_001"
+      workload_capacity: 0.6
+      current_workload: 0.5
+
+  - id: "backend_dev_001"
+    name: "Lisa Chen"
+    role: "Backend Software Engineer"
+    department: "Technology"
+    level: "Senior"
+    email: "lisa.chen@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.5
+      authority_response: 0.6
+      communication_style: 0.5
+      change_adaptability: 0.7
+      workload_sensitivity: 0.6
+      collaboration_preference: 0.6
+    professional_profile:
+      department: "Technology"
+      role: "Backend Software Engineer"
+      seniority_level: 1
+      expertise_areas: ["Java", "Spring Boot", "Microservices", "Database Design"]
+      manager_id: "backend_eng_mgr_001"
+      workload_capacity: 0.6
+      current_workload: 0.6
+
+  - id: "data_scientist_001"
+    name: "David Park"
+    role: "Senior Data Scientist"
+    department: "Technology"
+    level: "Senior"
+    email: "david.park@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.7
+      authority_response: 0.6
+      communication_style: 0.6
+      change_adaptability: 0.8
+      workload_sensitivity: 0.4
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Technology"
+      role: "Senior Data Scientist"
+      seniority_level: 1
+      expertise_areas: ["Machine Learning", "Python", "TensorFlow", "Statistical Analysis"]
+      manager_id: "ml_director_001"
+      workload_capacity: 0.6
+      current_workload: 0.7
+
+  # Individual Contributors - Mid Level
+  - id: "dev_001"
+    name: "Emma Wilson"
+    role: "Software Engineer"
+    department: "Technology"
+    level: "Mid"
+    email: "emma.wilson@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.5
+      authority_response: 0.7
+      communication_style: 0.6
+      change_adaptability: 0.7
+      workload_sensitivity: 0.6
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Technology"
+      role: "Software Engineer"
+      seniority_level: 1
+      expertise_areas: ["Frontend Development", "React", "TypeScript", "CSS"]
+      manager_id: "senior_eng_mgr_001"
+      workload_capacity: 0.5
+      current_workload: 0.5
+
+  - id: "qa_engineer_001"
+    name: "James Brown"
+    role: "QA Engineer"
+    department: "Technology"
+    level: "Mid"
+    email: "james.brown@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.3
+      authority_response: 0.7
+      communication_style: 0.6
+      change_adaptability: 0.6
+      workload_sensitivity: 0.7
+      collaboration_preference: 0.7
+    professional_profile:
+      department: "Technology"
+      role: "QA Engineer"
+      seniority_level: 1
+      expertise_areas: ["Test Automation", "Selenium", "Manual Testing", "Quality Assurance"]
+      manager_id: "qa_director_001"
+      workload_capacity: 0.5
+      current_workload: 0.6
+
+  # Individual Contributors - Junior Level
+  - id: "junior_dev_001"
+    name: "Taylor Smith"
+    role: "Junior Software Engineer"
+    department: "Technology"
+    level: "Junior"
+    email: "taylor.smith@techinnovators.com"
+    personality_traits:
+      risk_tolerance: 0.4
+      authority_response: 0.8
+      communication_style: 0.6
+      change_adaptability: 0.8
+      workload_sensitivity: 0.7
+      collaboration_preference: 0.8
+    professional_profile:
+      department: "Technology"
+      role: "Junior Software Engineer"
+      seniority_level: 1
+      expertise_areas: ["JavaScript", "HTML", "CSS", "React Basics"]
+      manager_id: "senior_eng_mgr_001"
+      workload_capacity: 0.4
+      current_workload: 0.4
+
+strategic_goals:
+  - id: "sg_001"
+    title: "AI-First Product Strategy"
+    description: "Transform all products to be AI-powered and intelligent by default"
+    priority: "high"
+    target_date: "2025-12-31"
+    success_metrics:
+      - "100% of products have AI capabilities"
+      - "AI features drive 40% of user engagement"
+      - "AI-powered automation reduces manual work by 60%"
+
+  - id: "sg_002"
+    title: "Global Market Expansion"
+    description: "Expand into 5 new international markets within 24 months"
+    priority: "high"
+    target_date: "2026-06-30"
+    success_metrics:
+      - "Presence in 5 new countries"
+      - "International revenue growth of 200%"
+      - "Localized product offerings in each market"
+
+  - id: "sg_003"
+    title: "Customer Success Excellence"
+    description: "Achieve industry-leading customer satisfaction and retention rates"
+    priority: "high"
+    target_date: "2025-09-30"
+    success_metrics:
+      - "Customer satisfaction score of 4.8/5"
+      - "Customer retention rate of 98%"
+      - "Net Promoter Score of 70+"
+
+  - id: "sg_004"
+    title: "Talent Development & Culture"
+    description: "Build the best engineering and product teams in the industry"
+    priority: "medium"
+    target_date: "2025-12-31"
+    success_metrics:
+      - "Employee satisfaction score of 4.5/5"
+      - "Engineering team growth of 50%"
+      - "Internal promotion rate of 30%"
+
+  - id: "sg_005"
+    title: "Sustainable Growth"
+    description: "Achieve profitable growth while maintaining innovation culture"
+    priority: "medium"
+    target_date: "2026-12-31"
+    success_metrics:
+      - "Revenue growth of 100% year-over-year"
+      - "Profit margin improvement of 15%"
+      - "R&D investment maintained at 20% of revenue"
+
+simulation_parameters:
+  time_acceleration_factor: 144  # 1 real minute = 1 simulation day
+  communication_frequency: 0.4   # Higher communication frequency for larger org
+  response_delay_range: [2, 48]  # Longer response delays for larger org
+  stress_threshold: 0.7          # Lower stress threshold for better work-life balance
+  collaboration_bonus: 0.25      # Higher collaboration bonus for complex org
