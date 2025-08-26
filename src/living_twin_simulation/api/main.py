@@ -1,8 +1,11 @@
 """
-Living Twin Simulation API
+Living Twin Organizational Intelligence API
 
-FastAPI application with OpenAPI/Swagger documentation and Pydantic models
-for type-safe API interactions.
+FastAPI application providing access to the Living Twin system:
+- Organizational Twin management
+- Strategic communications (NUDGE → RECOMMENDATION → ORDER)
+- Intelligence agents (Market M##, Catchball C##, Wisdom W##)
+- CEO morning ritual and 5-5-5 constraint conversations
 """
 
 from fastapi import FastAPI, HTTPException, BackgroundTasks
@@ -16,7 +19,9 @@ from datetime import datetime, timedelta
 
 from ..simulation.simulation_engine import SimulationEngine
 from ..domain.models import (
-    SimulationAgent, CommunicationType, ResponseType
+    OrganizationalMember, CommunicationType, ResponseType, StrategicPriority,
+    IntelligenceAgentType, MarketIntelligenceAgent, CatchballAgent, 
+    WisdomAgent, TruthAgent, GossipAgent, OrganizationalTwin
 )
 from ..config.loader import ConfigurationLoader, create_agent_from_config, convert_employee_list_to_dict
 
@@ -26,23 +31,29 @@ logger = logging.getLogger(__name__)
 
 # Create FastAPI app with OpenAPI metadata
 app = FastAPI(
-    title="Living Twin Simulation API",
+    title="Living Twin Organizational Intelligence API",
     description="""
-    Interactive API for the Living Twin Simulation Engine.
+    The Living Twin API enables organizational intelligence and strategic alignment.
     
-    This API provides endpoints for:
-    - Managing organizational simulations
-    - Sending strategic communications
-    - Analyzing collective responses (Wisdom of the Crowd)
-    - Resolving priority conflicts through Catchball Communication
+    ## Core Concepts
     
-    ## Strategic Alignment Focus
+    **Organizational Twin**: AI entity representing collective organizational intelligence
+    **Strategic Communications**: NUDGE → RECOMMENDATION → ORDER hierarchy
+    **Intelligence Agents**:
+    - Market Agents (M##): Competition, trends, M&A, regulatory news
+    - Catchball Agents (C##): Two-way strategic feedback and alignment
+    - Wisdom Agents (W##): Collective intelligence patterns and crowd wisdom
     
-    The simulation focuses on strategic alignment rather than operational decisions:
-    - Business goals and market priorities
-    - Employee satisfaction and retention
-    - Department-specific strategic interpretations
-    - Priority conflict resolution
+    ## CEO Morning Ritual (5-5-5 Rule)
+    
+    - **5 minutes**: Daily interaction duration
+    - **5 strategic items**: Maximum in morning queue
+    - **5 conversation hooks**: Capture strategic intent and decisions
+    
+    ## Strategic Boundary
+    
+    This system operates at the strategic level - translating business objectives
+    into organizational alignment. It stops before operational details and daily tasks.
     """,
     version="1.0.0",
     contact={
@@ -65,36 +76,128 @@ app.add_middleware(
 )
 
 # Pydantic models for API requests/responses
-class EmployeeResponse(BaseModel):
+class OrganizationalMemberResponse(BaseModel):
+    """Response model for organizational members in the Living Twin system."""
     id: str
     name: str
     role: str
     department: str
     level: str
     personality_traits: List[str]
-    workload: float = Field(ge=0.0, le=1.0)
-    satisfaction: float = Field(ge=0.0, le=1.0)
+    workload: float = Field(ge=0.0, le=1.0, description="Current workload as fraction of capacity")
+    satisfaction: float = Field(ge=0.0, le=1.0, description="Satisfaction level (derived from stress)")
+    strategic_alignment_score: float = Field(ge=0.0, le=1.0, description="How aligned with current strategic priorities")
     
     class Config:
         from_attributes = True
 
-class CommunicationRequest(BaseModel):
-    sender_id: str
-    recipient_ids: List[str]
-    communication_type: CommunicationType
-    content: str
-    priority: str = Field(default="medium", pattern="^(low|medium|high|critical)$")
-    strategic_goal: Optional[str] = None
+
+class IntelligenceAgentResponse(BaseModel):
+    """Response model for intelligence agents (M##, C##, W##)."""
+    id: str
+    tag: str = Field(description="Agent identifier (e.g., M07, C12, W03)")
+    agent_type: IntelligenceAgentType
+    title: str
+    description: str = Field(description="Brief description of the intelligence")
+    content: str = Field(description="Detailed intelligence content")
+    priority: StrategicPriority
+    confidence_level: float = Field(ge=0.0, le=1.0, description="AI confidence in this intelligence")
+    viewed_by_ceo: bool = Field(description="Whether CEO has seen this intelligence")
+    ceo_action_taken: Optional[str] = Field(description="CEO action: commented, targeted, requested_info")
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+
+class MarketIntelligenceResponse(IntelligenceAgentResponse):
+    """Market Intelligence Agent (M##) response with market-specific data."""
+    market_category: str = Field(description="Category: competition, trends, ma, regulations, news")
+    impact_assessment: str = Field(description="Impact level: high, medium, low")
+    competitive_threat_level: float = Field(ge=0.0, le=1.0)
+    market_opportunity_score: float = Field(ge=0.0, le=1.0)
+    related_companies: List[str] = Field(default_factory=list)
+    affected_business_units: List[str] = Field(default_factory=list)
+
+
+class CatchballAgentResponse(IntelligenceAgentResponse):
+    """Catchball Agent (C##) response for strategic feedback."""
+    originating_member_id: str = Field(description="Who initiated this catchball")
+    round_number: int = Field(description="Current round of catchball communication")
+    consensus_level: float = Field(ge=0.0, le=1.0, description="Level of consensus achieved")
+    priority_conflicts: List[str] = Field(default_factory=list)
+    resource_constraints: List[str] = Field(default_factory=list)
+
+
+class WisdomAgentResponse(IntelligenceAgentResponse):
+    """Wisdom of Crowd Agent (W##) response for collective intelligence."""
+    pattern_type: str = Field(description="Pattern: hesitation, conflict, consensus, concern")
+    affected_percentage: float = Field(ge=0.0, le=1.0, description="Percentage of organization affected")
+    response_velocity: float = Field(description="How quickly people are responding")
+    sentiment_score: float = Field(ge=-1.0, le=1.0, description="Overall sentiment")
+
+
+class TruthAgentResponse(IntelligenceAgentResponse):
+    """Truth Agent (T##) response for verified facts and confirmed intelligence."""
+    verification_status: str = Field(description="Status: verified, cross_referenced, system_confirmed")
+    data_sources: List[str] = Field(description="Source systems or channels that verified this truth")
+    truth_category: str = Field(description="Category: metric, event, decision, change")
+    immediate_action_required: bool = Field(description="Whether this truth requires immediate CEO action")
+    business_impact_score: float = Field(ge=0.0, le=1.0, description="Assessed business impact")
+    urgency_level: float = Field(ge=0.0, le=1.0, description="Urgency level for strategic response")
+    originally_gossip_id: Optional[str] = Field(None, description="If this truth originated from gossip")
+
+
+class GossipAgentResponse(IntelligenceAgentResponse):
+    """Gossip Agent (G##) response for unverified patterns and organizational signals."""
+    report_count: int = Field(description="Number of similar reports received")
+    validation_threshold: int = Field(description="Reports needed to escalate for validation")
+    gossip_category: str = Field(description="Category: concern, excitement, frustration, rumor, insight")
+    emotional_tone: float = Field(ge=-1.0, le=1.0, description="Emotional tone of gossip")
+    source_departments: List[str] = Field(description="Departments where gossip originated (anonymized)")
+    source_levels: List[str] = Field(description="Seniority levels reporting (anonymized)")
+    validation_requested: bool = Field(description="Whether validation has been requested")
+    promoted_to_truth: bool = Field(description="Whether this gossip has been verified as truth")
+    strategic_relevance_score: float = Field(ge=0.0, le=1.0, description="Strategic relevance assessment")
+    escalation_urgency: float = Field(ge=0.0, le=1.0, description="Urgency for CEO attention")
+
+
+class OrganizationalTwinResponse(BaseModel):
+    """The main Organizational Twin status and morning queue."""
+    id: str
+    organization_id: str
+    morning_queue: List[IntelligenceAgentResponse] = Field(description="Current morning queue (max 5 items)")
+    current_conversation_hooks: List[str] = Field(description="Active conversation hooks (max 5)")
+    last_ceo_interaction: Optional[datetime]
+    daily_interaction_count: int
+    average_interaction_duration_minutes: float
+    
+    class Config:
+        from_attributes = True
+
+
+class StrategicCommunicationRequest(BaseModel):
+    """Request model for sending strategic communications in Living Twin system."""
+    sender_id: str = Field(description="ID of the sender (usually CEO)")
+    recipient_ids: List[str] = Field(description="List of organizational member IDs to receive communication")
+    communication_type: CommunicationType = Field(description="NUDGE → RECOMMENDATION → ORDER hierarchy")
+    content: str = Field(description="Strategic communication content - stays at strategic level")
+    priority: StrategicPriority = Field(default=StrategicPriority.MEDIUM)
+    strategic_goal: Optional[str] = Field(None, description="Related strategic objective")
+    enable_catchball: bool = Field(default=False, description="Enable two-way strategic feedback")
+    request_wisdom: bool = Field(default=False, description="Request crowd intelligence analysis")
     
     class Config:
         json_schema_extra = {
             "example": {
                 "sender_id": "ceo_001",
-                "recipient_ids": ["vp_tech_001", "vp_sales_001"],
+                "recipient_ids": ["cto_001", "cmo_001", "cfo_001"],
                 "communication_type": "NUDGE",
-                "content": "Focus on organic growth targets for Q4",
-                "priority": "high",
-                "strategic_goal": "Market expansion"
+                "content": "We need to accelerate our AI-first product strategy to compete with recent market developments",
+                "priority": "HIGH",
+                "strategic_goal": "AI-First Product Strategy",
+                "enable_catchball": True,
+                "request_wisdom": True
             }
         }
 
@@ -196,15 +299,15 @@ async def health_check():
         "simulation_engine": simulation_engine is not None
     }
 
-@app.get("/employees", response_model=List[EmployeeResponse], tags=["Employees"])
-async def get_employees(organization_id: Optional[str] = None):
+@app.get("/organizational-members", response_model=List[OrganizationalMemberResponse], tags=["Organizational Members"])
+async def get_organizational_members(organization_id: Optional[str] = None):
     """
-    Get all employees in the simulation.
+    Get all organizational members in the Living Twin system.
     
     Args:
-        organization_id: Optional organization ID to filter employees. If not provided, returns employees from current simulation.
+        organization_id: Optional organization ID to filter members. If not provided, returns members from current organization.
     
-    Returns a list of all employees with their roles, departments, and current status.
+    Returns a list of all organizational members with their roles, departments, and strategic alignment status.
     """
     if not simulation_engine:
         raise HTTPException(status_code=503, detail="Simulation engine not initialized")
@@ -318,15 +421,15 @@ async def get_organization_info(org_id: str):
         logger.error(f"Error fetching organization info: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch organization info")
 
-@app.get("/organizations/{org_id}/employees", response_model=List[EmployeeResponse], tags=["Employees"])
-async def get_employees_by_organization(org_id: str):
+@app.get("/organizations/{org_id}/members", response_model=List[OrganizationalMemberResponse], tags=["Organizational Members"])
+async def get_members_by_organization(org_id: str):
     """
-    Get all employees for a specific organization.
+    Get all organizational members for a specific organization.
     
     Args:
-        org_id: Organization ID (e.g., "acme_corp")
+        org_id: Organization ID (e.g., "acme_corp", "tech_innovators")
     
-    Returns a list of all employees in the specified organization.
+    Returns a list of all organizational members in the specified organization.
     """
     try:
         config = config_loader.load_organization(org_id)
@@ -359,15 +462,15 @@ async def get_employees_by_organization(org_id: str):
         logger.error(f"Error fetching employees for organization {org_id}: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch employees")
 
-@app.get("/employees/{department}", response_model=List[EmployeeResponse], tags=["Employees"])
-async def get_employees_by_department(department: str):
+@app.get("/organizational-members/department/{department}", response_model=List[OrganizationalMemberResponse], tags=["Organizational Members"])
+async def get_members_by_department(department: str):
     """
-    Get employees by department.
+    Get organizational members by department.
     
     Args:
         department: Department name (e.g., "Technology", "Sales", "Marketing")
     
-    Returns filtered list of employees in the specified department.
+    Returns filtered list of organizational members in the specified department.
     """
     if not simulation_engine:
         raise HTTPException(status_code=503, detail="Simulation engine not initialized")
@@ -546,6 +649,313 @@ async def stop_simulation():
     except Exception as e:
         logger.error(f"Error stopping simulation: {e}")
         raise HTTPException(status_code=500, detail="Failed to stop simulation")
+
+
+# ==========================================
+# LIVING TWIN SPECIFIC ENDPOINTS
+# ==========================================
+
+@app.get("/organizational-twin", response_model=OrganizationalTwinResponse, tags=["Organizational Twin"])
+async def get_organizational_twin():
+    """
+    Get the current Organizational Twin status and morning queue.
+    
+    Returns the main AI entity with its morning queue (max 5 items) and conversation hooks.
+    This is the primary interface for CEO morning ritual interactions.
+    """
+    try:
+        # Mock response for demonstration
+        mock_intelligence_agents = [
+            IntelligenceAgentResponse(
+                id="market_001",
+                tag="M07",
+                agent_type=IntelligenceAgentType.MARKET,
+                title="TechFlow Acquisition by Salesforce",
+                description="Competitor acquisition impacts our market position",
+                content="TechFlow acquired by Salesforce for $2.1B creates competitive pressure in our core CRM integration space. Recommended strategic response needed.",
+                priority=StrategicPriority.HIGH,
+                confidence_level=0.9,
+                viewed_by_ceo=False,
+                ceo_action_taken=None,
+                created_at=datetime.now()
+            ),
+            IntelligenceAgentResponse(
+                id="catchball_001", 
+                tag="C12",
+                agent_type=IntelligenceAgentType.CATCHBALL,
+                title="Nordic Expansion Resource Constraints",
+                description="Sarah Chen escalated resource needs via catchball",
+                content="VP Sales Sarah Chen reports Nordic expansion needs additional headcount and budget allocation. Seeking strategic guidance on prioritization.",
+                priority=StrategicPriority.MEDIUM,
+                confidence_level=0.8,
+                viewed_by_ceo=False,
+                ceo_action_taken=None,
+                created_at=datetime.now()
+            )
+        ]
+        
+        return OrganizationalTwinResponse(
+            id="org_twin_001",
+            organization_id="acme_corp",
+            morning_queue=mock_intelligence_agents,
+            current_conversation_hooks=["TechFlow acquisition", "Nordic expansion", "Resource constraints"],
+            last_ceo_interaction=None,
+            daily_interaction_count=0,
+            average_interaction_duration_minutes=5.0
+        )
+    except Exception as e:
+        logger.error(f"Error fetching organizational twin: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch organizational twin")
+
+
+@app.get("/intelligence-agents", response_model=List[IntelligenceAgentResponse], tags=["Intelligence Agents"])
+async def get_intelligence_agents(
+    agent_type: Optional[IntelligenceAgentType] = None,
+    viewed_by_ceo: Optional[bool] = None,
+    limit: int = Field(default=10, le=50)
+):
+    """
+    Get intelligence agents (M##, C##, W##) with optional filtering.
+    
+    Args:
+        agent_type: Filter by agent type (MARKET, CATCHBALL, WISDOM)
+        viewed_by_ceo: Filter by whether CEO has viewed
+        limit: Maximum number of agents to return
+    
+    Returns list of intelligence agents with their strategic insights.
+    """
+    try:
+        # Mock intelligence agents for demonstration
+        mock_agents = [
+            IntelligenceAgentResponse(
+                id="market_001", tag="M07", agent_type=IntelligenceAgentType.MARKET,
+                title="TechFlow Acquisition", description="Competitive threat analysis",
+                content="Detailed market analysis...", priority=StrategicPriority.HIGH,
+                confidence_level=0.9, viewed_by_ceo=False, ceo_action_taken=None,
+                created_at=datetime.now()
+            ),
+            IntelligenceAgentResponse(
+                id="wisdom_001", tag="W03", agent_type=IntelligenceAgentType.WISDOM,
+                title="85% Teams Report Resource Concerns", description="Collective wisdom pattern",
+                content="Cross-department analysis shows resource constraints affecting Q3 goals...",
+                priority=StrategicPriority.MEDIUM, confidence_level=0.7,
+                viewed_by_ceo=False, ceo_action_taken=None, created_at=datetime.now()
+            )
+        ]
+        
+        # Apply filters
+        filtered_agents = mock_agents
+        if agent_type:
+            filtered_agents = [a for a in filtered_agents if a.agent_type == agent_type]
+        if viewed_by_ceo is not None:
+            filtered_agents = [a for a in filtered_agents if a.viewed_by_ceo == viewed_by_ceo]
+            
+        return filtered_agents[:limit]
+    except Exception as e:
+        logger.error(f"Error fetching intelligence agents: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch intelligence agents")
+
+
+@app.post("/intelligence-agents/{agent_id}/ceo-action", tags=["Intelligence Agents"])
+async def record_ceo_action(
+    agent_id: str,
+    action: str = Field(description="CEO action: commented, targeted, requested_info"),
+    notes: Optional[str] = Field(None, description="CEO notes or comments"),
+    target_members: Optional[List[str]] = Field(None, description="If targeted, list of member IDs")
+):
+    """
+    Record CEO action on an intelligence agent.
+    
+    This endpoint captures CEO interactions with intelligence agents for the 5-5-5 morning ritual.
+    Actions include commenting, targeting specific people, or requesting more information.
+    """
+    try:
+        # In real implementation, this would update the intelligence agent record
+        result = {
+            "agent_id": agent_id,
+            "action_recorded": action,
+            "notes": notes,
+            "target_members": target_members or [],
+            "timestamp": datetime.now(),
+            "message": f"CEO action '{action}' recorded for intelligence agent {agent_id}"
+        }
+        
+        if action == "targeted" and target_members:
+            result["followup"] = f"Strategic communication will be sent to {len(target_members)} organizational members"
+        elif action == "requested_info":
+            result["followup"] = "Additional intelligence gathering initiated"
+            
+        return result
+    except Exception as e:
+        logger.error(f"Error recording CEO action: {e}")
+        raise HTTPException(status_code=500, detail="Failed to record CEO action")
+
+
+@app.get("/morning-queue", response_model=List[IntelligenceAgentResponse], tags=["CEO Morning Ritual"])
+async def get_morning_queue():
+    """
+    Get the CEO morning queue - prioritized strategic intelligence for daily 5-minute ritual.
+    
+    Returns maximum 5 items following the 5-5-5 rule:
+    - 5 minutes interaction time
+    - 5 strategic items maximum  
+    - 5 conversation hooks to capture decisions
+    """
+    try:
+        # Mock morning queue with Truth/Gossip intelligence showcase
+        mock_queue = [
+            IntelligenceAgentResponse(
+                id="truth_004", tag="T04", agent_type=IntelligenceAgentType.TRUTH,
+                title="Q3 Revenue Missed Target by 8%",
+                description="Verified truth from financial systems",
+                content="Q3 revenue came in at $4.2M vs $4.57M target (8.1% miss). Confirmed across multiple financial systems. Immediate strategic response required for Q4 recovery.",
+                priority=StrategicPriority.HIGH, confidence_level=1.0,
+                viewed_by_ceo=False, ceo_action_taken=None, created_at=datetime.now()
+            ),
+            IntelligenceAgentResponse(
+                id="gossip_023", tag="G23", agent_type=IntelligenceAgentType.GOSSIP,
+                title="Sales Team Confidence Dropping on Q4 Targets",
+                description="4 similar reports, confidence 0.7 - correlates with T04",
+                content="Anonymous reports from Sales, Marketing, and Customer Success expressing concerns about Q4 targets being 'unrealistic given market conditions'. Pattern suggests broader confidence issue.",
+                priority=StrategicPriority.MEDIUM, confidence_level=0.7,
+                viewed_by_ceo=False, ceo_action_taken=None, created_at=datetime.now()
+            ),
+            IntelligenceAgentResponse(
+                id="market_007", tag="M07", agent_type=IntelligenceAgentType.MARKET,
+                title="TechFlow Acquisition Creates Competitive Pressure",
+                description="Salesforce $2.1B acquisition impacts our market position",
+                content="TechFlow's acquisition by Salesforce strengthens their CRM integration offerings, directly competing with our strategic initiatives. Market analysis suggests 15-20% competitive pressure increase.",
+                priority=StrategicPriority.HIGH, confidence_level=0.9,
+                viewed_by_ceo=False, ceo_action_taken=None, created_at=datetime.now()
+            ),
+            IntelligenceAgentResponse(
+                id="wisdom_003", tag="W03", agent_type=IntelligenceAgentType.WISDOM,
+                title="85% Teams Report Q3 Feasibility Concerns",
+                description="Wisdom validates gossip G23 - broader pattern confirmed",
+                content="Cross-departmental analysis confirms resource constraints affecting goal achievement. This wisdom pattern strongly correlates with gossip G23, suggesting systemic confidence issues.",
+                priority=StrategicPriority.MEDIUM, confidence_level=0.8,
+                viewed_by_ceo=False, ceo_action_taken=None, created_at=datetime.now()
+            ),
+            IntelligenceAgentResponse(
+                id="catchball_012", tag="C12", agent_type=IntelligenceAgentType.CATCHBALL,
+                title="Nordic Expansion Resource Discussion",
+                description="Sarah Chen initiated strategic alignment catchball",
+                content="VP Sales Sarah Chen requests strategic guidance on Nordic expansion resource allocation in light of Q3 performance and Q4 concerns.",
+                priority=StrategicPriority.MEDIUM, confidence_level=0.8,
+                viewed_by_ceo=False, ceo_action_taken=None, created_at=datetime.now()
+            )
+        ]
+        
+        return mock_queue
+    except Exception as e:
+        logger.error(f"Error fetching morning queue: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch morning queue")
+
+
+@app.post("/gossip/{gossip_id}/validate", tags=["Truth & Gossip Intelligence"])
+async def request_gossip_validation(
+    gossip_id: str,
+    validation_method: str = Field(description="Method: catchball, survey, metric_check, direct_inquiry"),
+    target_departments: Optional[List[str]] = Field(None, description="Specific departments to validate with"),
+    urgency: str = Field(default="medium", description="Validation urgency: low, medium, high")
+):
+    """
+    Request validation of a gossip pattern to potentially promote it to verified truth.
+    
+    This is a key part of the Truth/Gossip intelligence pipeline - when gossip reaches
+    certain thresholds or strategic relevance, the CEO can initiate validation.
+    """
+    try:
+        result = {
+            "gossip_id": gossip_id,
+            "validation_initiated": True,
+            "method": validation_method,
+            "target_departments": target_departments or [],
+            "urgency": urgency,
+            "estimated_completion": "2-5 business days",
+            "timestamp": datetime.now()
+        }
+        
+        if validation_method == "catchball":
+            result["action"] = f"Catchball communications will be sent to {len(target_departments or [])} departments"
+            result["expected_outcome"] = "Strategic alignment discussion with department heads"
+        elif validation_method == "survey":
+            result["action"] = "Anonymous survey will be distributed to relevant organizational members"
+            result["expected_outcome"] = "Quantified sentiment and concern validation"
+        elif validation_method == "metric_check":
+            result["action"] = "System metrics and KPIs will be analyzed for correlation"
+            result["expected_outcome"] = "Data-driven validation of gossip patterns"
+        elif validation_method == "direct_inquiry":
+            result["action"] = "Direct conversations will be initiated with key stakeholders"
+            result["expected_outcome"] = "Immediate clarification and resolution path"
+            
+        # In real system, this would trigger the validation workflow
+        result["next_steps"] = [
+            "Validation workflow initiated",
+            "Progress updates in daily morning queue",
+            "Results will appear as Truth agent if validated",
+            "CEO will be notified of validation outcome"
+        ]
+        
+        return result
+    except Exception as e:
+        logger.error(f"Error requesting gossip validation: {e}")
+        raise HTTPException(status_code=500, detail="Failed to initiate gossip validation")
+
+
+@app.get("/truth-gossip-correlation", tags=["Truth & Gossip Intelligence"])
+async def get_truth_gossip_correlations():
+    """
+    Get correlations between Truth and Gossip intelligence for strategic insights.
+    
+    This endpoint shows how the Living Twin connects verified facts with organizational
+    sentiment to provide deeper strategic understanding.
+    """
+    try:
+        correlations = [
+            {
+                "truth_id": "truth_004",
+                "truth_title": "Q3 Revenue Missed Target by 8%",
+                "correlated_gossip": [
+                    {
+                        "gossip_id": "gossip_023",
+                        "gossip_title": "Sales team confidence dropping",
+                        "correlation_strength": 0.85,
+                        "correlation_type": "validates_truth"
+                    }
+                ],
+                "strategic_insight": "Revenue miss correlates with grassroots confidence issues - suggests systemic rather than isolated problem",
+                "recommended_action": "Address confidence through strategic communication and Q4 plan adjustment"
+            },
+            {
+                "truth_id": "truth_011", 
+                "truth_title": "Employee satisfaction scores up 12%",
+                "correlated_gossip": [
+                    {
+                        "gossip_id": "gossip_017",
+                        "gossip_title": "People worried about job security",
+                        "correlation_strength": -0.7,
+                        "correlation_type": "contradicts_gossip"
+                    }
+                ],
+                "strategic_insight": "Positive satisfaction metrics conflict with security concerns - may indicate pockets of anxiety despite overall improvement",
+                "recommended_action": "Investigate specific departments or roles where security concerns persist"
+            }
+        ]
+        
+        return {
+            "correlations": correlations,
+            "analysis_summary": "Truth/Gossip correlation analysis reveals 2 significant patterns requiring CEO attention",
+            "strategic_recommendations": [
+                "Use gossip validation to understand root causes behind verified truths",
+                "Address contradictions between official metrics and informal sentiment",
+                "Leverage correlations for proactive strategic communications"
+            ]
+        }
+    except Exception as e:
+        logger.error(f"Error fetching truth-gossip correlations: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch correlations")
+
 
 if __name__ == "__main__":
     import uvicorn

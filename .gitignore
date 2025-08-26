@@ -152,3 +152,5 @@ example_employees.json
 # Temporary files
 *.tmp
 *.temp
+web/node_modules/
+web/.next/

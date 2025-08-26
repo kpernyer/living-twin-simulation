@@ -1,0 +1,276 @@
+import React, { useState } from 'react';
+import { TrendingUp, Target, AlertTriangle, CheckCircle2, Clock, Users } from 'lucide-react';
+
+interface VPSalesViewProps {
+  // Props from CEO decisions that cascade down
+  ceoActions?: Array<{id: string, decision: string, icon: string}>;
+}
+
+export const VPSalesView: React.FC<VPSalesViewProps> = ({ ceoActions = [] }) => {
+  const [completedPriorities, setCompletedPriorities] = useState<string[]>([]);
+  
+  // High-priority actions that made it from CEO session to VP Sales inbox
+  const salesPriorities = [
+    {
+      id: 'T04-SALES',
+      title: 'Strategic Revenue Review',
+      description: 'Lead enterprise segment value proposition analysis',
+      fromCEO: 'STRATEGIC REVENUE REVIEW',
+      urgency: 'immediate',
+      impact: 'high',
+      assignedTo: 'Sales Leadership',
+      dueDate: 'Today 4PM',
+      context: 'Q3 revenue miss - 8% below target in enterprise segment',
+      actions: [
+        'Analyze enterprise customer feedback patterns',
+        'Review competitive positioning vs. TechFlow',
+        'Assess sales process effectiveness',
+        'Coordinate with Product & Marketing teams'
+      ]
+    },
+    {
+      id: 'M07-SALES',
+      title: 'Competitive Response Strategy',
+      description: 'Develop counter-positioning to TechFlow acquisition',
+      fromCEO: 'COMPETITIVE RESPONSE',
+      urgency: 'high',
+      impact: 'critical',
+      assignedTo: 'Sales & Marketing',
+      dueDate: 'Tomorrow EOD',
+      context: 'TechFlow $2.1B acquisition signals AI-first positioning shift',
+      actions: [
+        'Update competitive battle cards',
+        'Train sales team on AI differentiation',
+        'Develop customer retention strategy',
+        'Create proactive outreach campaign'
+      ]
+    }
+  ];
+
+  // Sales team wisdom/insights that bubble up
+  const salesInsights = [
+    {
+      id: 'S01',
+      type: 'customer-feedback',
+      title: 'Enterprise customers requesting AI roadmap clarity',
+      description: '73% of enterprise prospects asking about AI strategy in Q3',
+      confidence: 87,
+      source: 'Sales Team Weekly Survey',
+      recommendation: 'Develop AI capability presentation for enterprise segment'
+    },
+    {
+      id: 'S02', 
+      type: 'competitive-intel',
+      title: 'TechFlow poaching attempts increasing',
+      description: '3 key accounts received TechFlow proposals this week',
+      confidence: 95,
+      source: 'Account Manager Reports',
+      recommendation: 'Activate retention protocols for tier-1 accounts'
+    },
+    {
+      id: 'S03',
+      type: 'market-signal',
+      title: 'Pricing pressure in mid-market segment',
+      description: 'Average deal size down 12% vs Q2, longer sales cycles',
+      confidence: 91,
+      source: 'CRM Analytics',
+      recommendation: 'Review pricing strategy and value messaging'
+    }
+  ];
+
+  const [expandedInsight, setExpandedInsight] = useState<string | null>(null);
+
+  const togglePriority = (id: string) => {
+    setCompletedPriorities(prev => 
+      prev.includes(id) 
+        ? prev.filter(p => p !== id)
+        : [...prev, id]
+    );
+  };
+
+  const getUrgencyColor = (urgency: string) => {
+    switch(urgency) {
+      case 'immediate': return 'border-red-200 bg-red-50';
+      case 'high': return 'border-orange-200 bg-orange-50';
+      case 'medium': return 'border-yellow-200 bg-yellow-50';
+      default: return 'border-slate-200 bg-slate-50';
+    }
+  };
+
+  const getInsightIcon = (type: string) => {
+    switch(type) {
+      case 'customer-feedback': return <Users className="text-blue-500" size={16} />;
+      case 'competitive-intel': return <Target className="text-red-500" size={16} />;
+      case 'market-signal': return <TrendingUp className="text-green-500" size={16} />;
+      default: return <AlertTriangle className="text-gray-500" size={16} />;
+    }
+  };
+
+  return (
+    <div className="vp-sales-view flex justify-center items-center">
+      {/* Same iPhone Frame as CEO view */}
+      <div className="bg-slate-900 rounded-[3rem] p-2 shadow-2xl border-8 border-slate-800">
+        <div className="bg-black rounded-[2.5rem] overflow-hidden" style={{ width: '375px', height: '667px' }}>
+          {/* Status Bar - Same as CEO */}
+          <div className="bg-black text-white px-6 py-2 flex justify-between items-center text-sm">
+            <div className="flex items-center space-x-1">
+              <div className="flex space-x-1">
+                <div className="w-4 h-2 bg-white rounded-sm"></div>
+                <div className="w-4 h-2 bg-white rounded-sm opacity-60"></div>
+                <div className="w-4 h-2 bg-white rounded-sm opacity-30"></div>
+              </div>
+              <span className="text-xs ml-1">Living Twin</span>
+            </div>
+            <div className="text-xs">9:41 AM</div>
+            <div className="flex items-center space-x-1">
+              <span className="text-xs">100%</span>
+              <div className="w-6 h-3 border border-white rounded-sm">
+                <div className="w-full h-full bg-emerald-400 rounded-sm"></div>
+              </div>
+            </div>
+          </div>
+          
+          {/* VP Sales Content - Same height as CEO demo */}
+          <div className="flex-1 flex flex-col bg-slate-900 text-white overflow-hidden" style={{ height: '635px' }}>
+            {/* Header */}
+            <div className="bg-slate-800 px-4 py-3 border-b border-slate-700">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm font-bold">
+                  VS
+                </div>
+                <div>
+                  <h1 className="text-md font-semibold text-white">VP Sales Dashboard</h1>
+                  <p className="text-slate-400 text-xs">Post-CEO Briefing • Priority Actions</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Scrollable Content Area */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {/* CEO-Cascaded Priorities */}
+        <div>
+          <h2 className="text-sm font-semibold text-white mb-3 flex items-center">
+            <Clock size={14} className="mr-2 text-red-400" />
+            High-Priority Actions
+            <span className="ml-2 bg-red-900 text-red-200 text-xs px-2 py-1 rounded-full">
+              From CEO Brief
+            </span>
+          </h2>
+          
+          <div className="space-y-3">
+            {salesPriorities.map((priority) => (
+              <div 
+                key={priority.id}
+                className={`border rounded-lg p-4 ${getUrgencyColor(priority.urgency)} ${
+                  completedPriorities.includes(priority.id) ? 'opacity-60' : ''
+                }`}
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <h3 className="font-medium text-slate-800">{priority.title}</h3>
+                      <span className="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded">
+                        {priority.fromCEO}
+                      </span>
+                    </div>
+                    <p className="text-sm text-slate-600 mb-2">{priority.description}</p>
+                    <p className="text-xs text-slate-500 italic mb-2">"{priority.context}"</p>
+                    
+                    <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
+                      <span>👤 {priority.assignedTo}</span>
+                      <span>📅 {priority.dueDate}</span>
+                    </div>
+                    
+                    <div className="space-y-1">
+                      {priority.actions.map((action, idx) => (
+                        <div key={idx} className="flex items-center space-x-2 text-xs">
+                          <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
+                          <span className="text-slate-600">{action}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <button
+                    onClick={() => togglePriority(priority.id)}
+                    className={`ml-3 p-1 rounded ${
+                      completedPriorities.includes(priority.id)
+                        ? 'text-green-600'
+                        : 'text-slate-400 hover:text-green-600'
+                    }`}
+                  >
+                    <CheckCircle2 size={20} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Sales Team Wisdom */}
+        <div>
+          <h2 className="text-md font-semibold text-slate-800 mb-3 flex items-center">
+            <TrendingUp size={16} className="mr-2 text-green-500" />
+            Sales Team Insights
+            <span className="ml-2 bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">
+              From Field
+            </span>
+          </h2>
+          
+          <div className="space-y-3">
+            {salesInsights.map((insight) => (
+              <div 
+                key={insight.id}
+                className="border border-slate-200 rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => setExpandedInsight(
+                  expandedInsight === insight.id ? null : insight.id
+                )}
+              >
+                <div className="flex items-start space-x-3">
+                  {getInsightIcon(insight.type)}
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="text-sm font-medium text-slate-800">{insight.title}</h3>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded">
+                          {insight.confidence}% conf.
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <p className="text-xs text-slate-600 mb-2">{insight.description}</p>
+                    
+                    {expandedInsight === insight.id && (
+                      <div className="mt-3 pt-3 border-t border-slate-100">
+                        <p className="text-xs text-slate-500 mb-2">
+                          <strong>Source:</strong> {insight.source}
+                        </p>
+                        <p className="text-xs text-blue-700 bg-blue-50 p-2 rounded">
+                          <strong>Recommendation:</strong> {insight.recommendation}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-slate-50 rounded-lg p-3 text-center">
+            <div className="text-lg font-bold text-slate-800">2/2</div>
+            <div className="text-xs text-slate-600">CEO Priorities</div>
+          </div>
+          <div className="bg-slate-50 rounded-lg p-3 text-center">
+            <div className="text-lg font-bold text-slate-800">3</div>
+            <div className="text-xs text-slate-600">Field Insights</div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

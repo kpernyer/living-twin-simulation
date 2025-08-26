@@ -159,7 +159,7 @@ export const SimulationProvider: React.FC<SimulationProviderProps> = ({ children
     try {
       const response = await axios.get(`${API_BASE}/status`);
       const isRunning = response.data.is_running;
-      setIsSimulationRunningWithStorage(isRunning);
+      setSimulationRunningWithStorage(isRunning);
 
       if (isRunning && response.data.organization_id) {
         // Load organization info
@@ -185,7 +185,7 @@ export const SimulationProvider: React.FC<SimulationProviderProps> = ({ children
     setOrganizationWithStorage(null);
     setActingAsWithStorage(null);
     setEmployeesWithStorage([]);
-    setIsSimulationRunningWithStorage(false);
+    setSimulationRunningWithStorage(false);
   };
 
   const value: SimulationContextType = {

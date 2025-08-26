@@ -118,7 +118,7 @@ export default function Dashboard() {
       const communication: CommunicationRequest = {
         sender_id: 'ceo_001', // Hardcoded for demo
         recipient_ids: selectedEmployees,
-        communication_type: communicationType,
+        communication_type: communicationType.toLowerCase() as 'nudge' | 'recommendation' | 'direct_order',
         content: content.trim(),
         priority: 'high',
         strategic_goal: 'Strategic alignment'
@@ -184,14 +184,14 @@ export default function Dashboard() {
   const departments = Array.from(new Set(employees.map(emp => emp.department)));
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-900">
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="px-4 py-6 sm:px-0">
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-white">
             Living Twin Simulation - CEO Dashboard
           </h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-slate-300">
             Strategic alignment and organizational behavior simulation
           </p>
         </div>
@@ -199,18 +199,18 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Employee Selection */}
           <div className="lg:col-span-1">
-            <div className="bg-white shadow rounded-lg p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Select Recipients</h2>
+            <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
+              <h2 className="text-lg font-semibold text-white mb-4">Select Recipients</h2>
               
               {/* Department Filter */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Filter by Department
                 </label>
                 <select
                   value={selectedDepartment}
                   onChange={(e) => setSelectedDepartment(e.target.value)}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-slate-700 border border-slate-600 text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
                 >
                   <option value="all">All Departments</option>
                   {departments.map(dept => (
@@ -226,15 +226,15 @@ export default function Dashboard() {
                     key={employee.id}
                     className={`p-3 border rounded-lg cursor-pointer transition-colors ${
                       selectedEmployees.includes(employee.id)
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-orange-500 bg-orange-500/10'
+                        : 'border-slate-600 hover:border-slate-500 bg-slate-700'
                     }`}
                     onClick={() => toggleEmployeeSelection(employee.id)}
                   >
-                    <div className="font-medium text-gray-900">{employee.name}</div>
-                    <div className="text-sm text-gray-600">{employee.role}</div>
-                    <div className="text-xs text-gray-500">{employee.department}</div>
-                    <div className="flex justify-between text-xs text-gray-400 mt-1">
+                    <div className="font-medium text-white">{employee.name}</div>
+                    <div className="text-sm text-slate-300">{employee.role}</div>
+                    <div className="text-xs text-slate-400">{employee.department}</div>
+                    <div className="flex justify-between text-xs text-slate-400 mt-1">
                       <span>Workload: {Math.round(employee.workload * 100)}%</span>
                       <span>Satisfaction: {Math.round(employee.satisfaction * 100)}%</span>
                     </div>
@@ -246,12 +246,12 @@ export default function Dashboard() {
 
           {/* Communication Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white shadow rounded-lg p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Strategic Communication</h2>
+            <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
+              <h2 className="text-lg font-semibold text-white mb-4">Strategic Communication</h2>
               
               {/* Communication Type */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Communication Type
                 </label>
                 <div className="flex space-x-4">
@@ -261,8 +261,8 @@ export default function Dashboard() {
                       onClick={() => setCommunicationType(type)}
                       className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                         communicationType === type
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          ? 'bg-orange-500 text-white'
+                          : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
                       }`}
                     >
                       {type.replace('_', ' ')}
@@ -273,7 +273,7 @@ export default function Dashboard() {
 
               {/* Strategic Templates */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Strategic Templates
                 </label>
                 <div className="grid grid-cols-1 gap-2">
@@ -281,9 +281,9 @@ export default function Dashboard() {
                     <button
                       key={index}
                       onClick={() => applyTemplate(template)}
-                      className="text-left p-3 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors"
+                      className="text-left p-3 border border-slate-600 bg-slate-700 rounded-lg hover:border-orange-500 hover:bg-orange-500/10 transition-colors"
                     >
-                      <div className="text-sm text-gray-900">{template.content}</div>
+                      <div className="text-sm text-slate-200">{template.content}</div>
                     </button>
                   ))}
                 </div>
@@ -291,14 +291,14 @@ export default function Dashboard() {
 
               {/* Content */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Message Content
                 </label>
                 <textarea
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   rows={4}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-slate-700 border border-slate-600 text-white placeholder-slate-400 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
                   placeholder="Enter your strategic communication..."
                 />
               </div>
@@ -308,14 +308,14 @@ export default function Dashboard() {
                 <button
                   onClick={sendCommunication}
                   disabled={isLoading || !content.trim() || selectedEmployees.length === 0}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? 'Sending...' : 'Send Communication'}
                 </button>
                 <button
                   onClick={initiateCatchball}
                   disabled={isLoading || !content.trim()}
-                  className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 bg-cyan-600 text-white rounded-md hover:bg-cyan-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? 'Initiating...' : 'Start Catchball'}
                 </button>
@@ -324,18 +324,18 @@ export default function Dashboard() {
 
             {/* Wisdom of the Crowd */}
             {wisdomAnalysis && (
-              <div className="bg-white shadow rounded-lg p-6 mt-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Wisdom of the Crowd</h2>
+              <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 mt-6">
+                <h2 className="text-lg font-semibold text-white mb-4">Wisdom of the Crowd</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <h3 className="font-medium text-gray-900 mb-2">Consensus Level</h3>
-                    <div className="text-2xl font-bold text-blue-600">
+                    <h3 className="font-medium text-slate-200 mb-2">Consensus Level</h3>
+                    <div className="text-2xl font-bold text-yellow-400">
                       {Math.round(wisdomAnalysis.consensus_level * 100)}%
                     </div>
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-900 mb-2">Detected Conflicts</h3>
-                    <ul className="text-sm text-gray-600">
+                    <h3 className="font-medium text-slate-200 mb-2">Detected Conflicts</h3>
+                    <ul className="text-sm text-slate-300">
                       {wisdomAnalysis.detected_conflicts.map((conflict, index) => (
                         <li key={index}>• {conflict}</li>
                       ))}
@@ -344,8 +344,8 @@ export default function Dashboard() {
                 </div>
                 {wisdomAnalysis.ceo_recommendations.length > 0 && (
                   <div className="mt-4">
-                    <h3 className="font-medium text-gray-900 mb-2">CEO Recommendations</h3>
-                    <ul className="text-sm text-gray-600">
+                    <h3 className="font-medium text-slate-200 mb-2">CEO Recommendations</h3>
+                    <ul className="text-sm text-slate-300">
                       {wisdomAnalysis.ceo_recommendations.map((rec, index) => (
                         <li key={index}>• {rec}</li>
                       ))}

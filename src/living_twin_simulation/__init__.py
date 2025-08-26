@@ -43,8 +43,8 @@ Example Usage:
 """
 
 from .domain.models import (
-    SimulationAgent,
-    PriorityCommunication,
+    OrganizationalMember,
+    StrategicCommunication,
     AgentResponse,
     ConsultationRequest,
     ConsultationFeedback,
@@ -53,11 +53,19 @@ from .domain.models import (
     OrganizationalMetrics,
     PersonalityProfile,
     ProfessionalProfile,
-    AgentMemory,
+    OrganizationalMemberMemory,
     PersonalityTrait,
     CommunicationType,
     ResponseType,
-    AgentState,
+    OrganizationalMemberState,
+    IntelligenceAgentType,
+    StrategicPriority,
+    TruthAgent,
+    GossipAgent,
+    MarketIntelligenceAgent,
+    CatchballAgent,
+    WisdomAgent,
+    OrganizationalTwin,
 )
 
 from .simulation.simulation_engine import SimulationEngine
@@ -72,8 +80,8 @@ __all__ = [
     "SimulationEngine",
     
     # Core models
-    "SimulationAgent",
-    "PriorityCommunication", 
+    "OrganizationalMember",
+    "StrategicCommunication", 
     "AgentResponse",
     "ConsultationRequest",
     "ConsultationFeedback",
@@ -84,13 +92,23 @@ __all__ = [
     # Profile models
     "PersonalityProfile",
     "ProfessionalProfile", 
-    "AgentMemory",
+    "OrganizationalMemberMemory",
+    
+    # Intelligence Agents
+    "TruthAgent",
+    "GossipAgent", 
+    "MarketIntelligenceAgent",
+    "CatchballAgent",
+    "WisdomAgent",
+    "OrganizationalTwin",
     
     # Enums
     "PersonalityTrait",
     "CommunicationType",
     "ResponseType",
-    "AgentState",
+    "OrganizationalMemberState",
+    "IntelligenceAgentType",
+    "StrategicPriority",
     
     # Factories and engines
     "AgentFactory",
