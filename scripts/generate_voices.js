@@ -5,7 +5,7 @@ const path = require('path');
 const https = require('https');
 
 // ElevenLabs API configuration
-const ELEVENLABS_API_KEY = 'sk_0e600072320c802a7ee6424cf8f3b08ab6ab569ae1b630bb';
+const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY || 'your-api-key-here';
 const ELEVENLABS_API_URL = 'https://api.elevenlabs.io';
 
 // Voice IDs for high-quality voices
