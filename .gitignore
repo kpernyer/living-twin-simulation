@@ -154,3 +154,4 @@ example_employees.json
 *.temp
 web/node_modules/
 web/.next/
+.env
