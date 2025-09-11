@@ -127,7 +127,7 @@ const LivingTwinV2 = () => {
 
     return {
       insights: commonInsights,
-      ...roleSpecific[role]
+      ...roleSpecific[role as keyof typeof roleSpecific]
     };
   };
 
@@ -231,7 +231,7 @@ const LivingTwinV2 = () => {
           <div className="max-w-6xl mx-auto">
             {/* Metrics Overview */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-              {dashboardData.metrics.map((metric, idx) => (
+              {dashboardData.metrics.map((metric: any, idx: number) => (
                 <div key={idx} className="bg-slate-800 rounded-lg p-6">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-sm font-medium text-slate-300">{metric.label}</h3>
@@ -256,7 +256,7 @@ const LivingTwinV2 = () => {
               {/* Current Priorities */}
               <div className="space-y-4">
                 <h2 className="text-xl font-semibold text-white mb-4">Current Priorities</h2>
-                {dashboardData.priorities.map((priority) => (
+                {dashboardData.priorities.map((priority: any) => (
                   <div key={priority.id} className={`p-4 rounded-lg border ${getUrgencyColor(priority.urgency)}`}>
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -278,7 +278,7 @@ const LivingTwinV2 = () => {
               {/* Organizational Insights */}
               <div className="space-y-4">
                 <h2 className="text-xl font-semibold text-white mb-4">Key Insights</h2>
-                {dashboardData.insights.map((insight) => (
+                {dashboardData.insights.map((insight: any) => (
                   <div key={insight.id} className="bg-slate-800 p-4 rounded-lg border border-slate-700">
                     <div className="flex items-start space-x-3">
                       {getInsightIcon(insight.type)}

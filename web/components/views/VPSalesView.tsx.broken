@@ -169,106 +169,105 @@ export const VPSalesView: React.FC<VPSalesViewProps> = ({ ceoActions = [] }) => 
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-1">
                             <h3 className="font-medium text-slate-800">{priority.title}</h3>
-                            <span className="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded">
-                              {priority.fromCEO}
-                            </span>
-                          </div>
-                          <p className="text-sm text-slate-600 mb-2">{priority.description}</p>
-                          <p className="text-xs text-slate-500 italic mb-2">"{priority.context}"</p>
-                          
-                          <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
-                            <span>👤 {priority.assignedTo}</span>
-                            <span>📅 {priority.dueDate}</span>
-                          </div>
-                          
-                          <div className="space-y-1">
-                            {priority.actions.map((action, idx) => (
-                              <div key={idx} className="flex items-center space-x-2 text-xs">
-                                <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
-                                <span className="text-slate-600">{action}</span>
-                              </div>
-                            ))}
-                          </div>
+                      <span className="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded">
+                        {priority.fromCEO}
+                      </span>
+                    </div>
+                    <p className="text-sm text-slate-600 mb-2">{priority.description}</p>
+                    <p className="text-xs text-slate-500 italic mb-2">"{priority.context}"</p>
+                    
+                    <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
+                      <span>👤 {priority.assignedTo}</span>
+                      <span>📅 {priority.dueDate}</span>
+                    </div>
+                    
+                    <div className="space-y-1">
+                      {priority.actions.map((action, idx) => (
+                        <div key={idx} className="flex items-center space-x-2 text-xs">
+                          <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
+                          <span className="text-slate-600">{action}</span>
                         </div>
-                        
-                        <button
-                          onClick={() => togglePriority(priority.id)}
-                          className={`ml-3 p-1 rounded ${
-                            completedPriorities.includes(priority.id)
-                              ? 'text-green-600'
-                              : 'text-slate-400 hover:text-green-600'
-                          }`}
-                        >
-                          <CheckCircle2 size={20} />
-                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <button
+                    onClick={() => togglePriority(priority.id)}
+                    className={`ml-3 p-1 rounded ${
+                      completedPriorities.includes(priority.id)
+                        ? 'text-green-600'
+                        : 'text-slate-400 hover:text-green-600'
+                    }`}
+                  >
+                    <CheckCircle2 size={20} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Sales Team Wisdom */}
+        <div>
+          <h2 className="text-md font-semibold text-slate-800 mb-3 flex items-center">
+            <TrendingUp size={16} className="mr-2 text-green-500" />
+            Sales Team Insights
+            <span className="ml-2 bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">
+              From Field
+            </span>
+          </h2>
+          
+          <div className="space-y-3">
+            {salesInsights.map((insight) => (
+              <div 
+                key={insight.id}
+                className="border border-slate-200 rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => setExpandedInsight(
+                  expandedInsight === insight.id ? null : insight.id
+                )}
+              >
+                <div className="flex items-start space-x-3">
+                  {getInsightIcon(insight.type)}
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="text-sm font-medium text-slate-800">{insight.title}</h3>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded">
+                          {insight.confidence}% conf.
+                        </span>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Sales Team Wisdom */}
-              <div>
-                <h2 className="text-md font-semibold text-slate-800 mb-3 flex items-center">
-                  <TrendingUp size={16} className="mr-2 text-green-500" />
-                  Sales Team Insights
-                  <span className="ml-2 bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">
-                    From Field
-                  </span>
-                </h2>
-                
-                <div className="space-y-3">
-                  {salesInsights.map((insight) => (
-                    <div 
-                      key={insight.id}
-                      className="border border-slate-200 rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer"
-                      onClick={() => setExpandedInsight(
-                        expandedInsight === insight.id ? null : insight.id
-                      )}
-                    >
-                      <div className="flex items-start space-x-3">
-                        {getInsightIcon(insight.type)}
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-1">
-                            <h3 className="text-sm font-medium text-slate-800">{insight.title}</h3>
-                            <div className="flex items-center space-x-2">
-                              <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded">
-                                {insight.confidence}% conf.
-                              </span>
-                            </div>
-                          </div>
-                          
-                          <p className="text-xs text-slate-600 mb-2">{insight.description}</p>
-                          
-                          {expandedInsight === insight.id && (
-                            <div className="mt-3 pt-3 border-t border-slate-100">
-                              <p className="text-xs text-slate-500 mb-2">
-                                <strong>Source:</strong> {insight.source}
-                              </p>
-                              <p className="text-xs text-blue-700 bg-blue-50 p-2 rounded">
-                                <strong>Recommendation:</strong> {insight.recommendation}
-                              </p>
-                            </div>
-                          )}
-                        </div>
+                    
+                    <p className="text-xs text-slate-600 mb-2">{insight.description}</p>
+                    
+                    {expandedInsight === insight.id && (
+                      <div className="mt-3 pt-3 border-t border-slate-100">
+                        <p className="text-xs text-slate-500 mb-2">
+                          <strong>Source:</strong> {insight.source}
+                        </p>
+                        <p className="text-xs text-blue-700 bg-blue-50 p-2 rounded">
+                          <strong>Recommendation:</strong> {insight.recommendation}
+                        </p>
                       </div>
-                    </div>
-                  ))}
+                    )}
+                  </div>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
 
-              {/* Quick Stats */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-slate-50 rounded-lg p-3 text-center">
-                  <div className="text-lg font-bold text-slate-800">2/2</div>
-                  <div className="text-xs text-slate-600">CEO Priorities</div>
-                </div>
-                <div className="bg-slate-50 rounded-lg p-3 text-center">
-                  <div className="text-lg font-bold text-slate-800">3</div>
-                  <div className="text-xs text-slate-600">Field Insights</div>
-                </div>
-              </div>
-            </div>
+        {/* Quick Stats */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-slate-50 rounded-lg p-3 text-center">
+            <div className="text-lg font-bold text-slate-800">2/2</div>
+            <div className="text-xs text-slate-600">CEO Priorities</div>
+          </div>
+          <div className="bg-slate-50 rounded-lg p-3 text-center">
+            <div className="text-lg font-bold text-slate-800">3</div>
+            <div className="text-xs text-slate-600">Field Insights</div>
+          </div>
+        </div>
           </div>
         </div>
       </div>

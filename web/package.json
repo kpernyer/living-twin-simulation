@@ -1,12 +1,15 @@
 {
-  "name": "living-twin-web",
+  "name": "aprio-living-twin",
   "version": "1.0.0",
-  "description": "Interactive web interface for Living Twin Simulation",
+  "description": "Aprio Living Twin - Interactive web interface for organizational intelligence",
+  "homepage": "https://dev.aprio.one",
   "packageManager": "pnpm@8.15.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next build && next export",
+    "deploy:firebase": "npm run export && firebase deploy --only hosting",
     "lint": "next lint",
     "type-check": "tsc --noEmit"
   },

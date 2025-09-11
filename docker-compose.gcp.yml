@@ -1,0 +1,75 @@
+# GCP/Firebase production deployment configuration
+# This replaces the Traefik-based setup with GCP Cloud Run + Firebase Hosting
+
+services:
+  # API service for Google Cloud Run deployment
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.cloudrun
+    container_name: aprio-living-twin-api
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - DOMAIN=aprio.one
+      - API_URL=https://dev.aprio.one/api
+      - OLLAMA_HOST=${OLLAMA_HOST:-http://localhost:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-mistral:7b-instruct}
+      - ENABLE_AI_PROCESSING=${ENABLE_AI_PROCESSING:-true}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - DEBUG=${DEBUG:-false}
+      - PORT=8080
+    volumes:
+      - ./config:/app/config:ro
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Next.js web app for Firebase Hosting (local testing)
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: aprio-living-twin-web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_DOMAIN=aprio.one
+      - NEXT_PUBLIC_APP_URL=https://dev.aprio.one
+      - NEXT_PUBLIC_API_URL=https://dev.aprio.one/api
+      - SIMULATION_API_URL=http://api:8080
+    volumes:
+      - ./web:/app/web
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Ollama service (for local development, not deployed to GCP)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: aprio-living-twin-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  ollama_data:
+    driver: local

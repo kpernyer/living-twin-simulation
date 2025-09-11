@@ -1159,9 +1159,9 @@ const LivingTwinMobile = () => {
                   getVoiceService().cancel();
                 }}
                 className="flex items-center space-x-1 px-2 py-1 rounded-full transition-all bg-coral-500 hover:bg-coral-600 text-white"
-                style={{ backgroundColor: '#FF7F7F', '--tw-bg-opacity': '1' }}
-                onMouseEnter={(e) => e.target.style.backgroundColor = '#FF6B6B'}
-                onMouseLeave={(e) => e.target.style.backgroundColor = '#FF7F7F'}
+                style={{ backgroundColor: '#FF7F7F' } as React.CSSProperties}
+                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = '#FF6B6B'}
+                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = '#FF7F7F'}
                 title="Pause meeting"
               >
                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">

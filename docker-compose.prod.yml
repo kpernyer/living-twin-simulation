@@ -1,0 +1,79 @@
+# Production Docker Compose for dev.aprio.one deployment
+# Single domain with path-based routing: /api routes to simulation service
+
+services:
+  # Production web interface with single domain configuration
+  web-interface:
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_DOMAIN=aprio.one
+      - NEXT_PUBLIC_APP_URL=https://dev.aprio.one
+      - NEXT_PUBLIC_API_URL=https://dev.aprio.one/api
+      - SIMULATION_API_URL=http://simulation:8000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.aprio-web.rule=Host(`dev.aprio.one`)"
+      - "traefik.http.routers.aprio-web.tls=true"
+      - "traefik.http.routers.aprio-web.tls.certresolver=letsencrypt"
+      - "traefik.http.services.aprio-web.loadbalancer.server.port=3000"
+    networks:
+      - web
+      - internal
+
+  # API service accessible via /api path (internal only, routed through Next.js)
+  simulation:
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - OLLAMA_MODEL=mistral:7b-instruct
+      - ENABLE_AI_PROCESSING=true
+      - LOG_LEVEL=INFO
+      - DEBUG=false
+      - DOMAIN=aprio.one
+      - API_URL=https://dev.aprio.one/api
+    networks:
+      - internal
+
+  # Ollama service (internal only)
+  ollama:
+    networks:
+      - internal
+
+  # Reverse proxy for SSL termination and domain routing
+  traefik:
+    image: traefik:v2.10
+    container_name: aprio-traefik
+    command:
+      - "--api.dashboard=true"
+      - "--api.insecure=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=admin@aprio.one"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--global.sendanonymoususage=false"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.aprio.one`)"
+      - "traefik.http.routers.traefik.tls=true"
+      - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
+
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+
+volumes:
+  ollama_data:
+    driver: local

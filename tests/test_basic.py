@@ -15,14 +15,14 @@ def test_import_communication_type():
     assert CommunicationType is not None
     assert hasattr(CommunicationType, 'NUDGE')
     assert hasattr(CommunicationType, 'RECOMMENDATION')
-    assert hasattr(CommunicationType, 'DIRECT_ORDER')
+    assert hasattr(CommunicationType, 'ORDER')
 
 
 def test_communication_type_values():
     """Test CommunicationType enum values."""
     assert CommunicationType.NUDGE.value == "nudge"
     assert CommunicationType.RECOMMENDATION.value == "recommendation"
-    assert CommunicationType.DIRECT_ORDER.value == "direct_order"
+    assert CommunicationType.ORDER.value == "order"
 
 
 @pytest.mark.asyncio

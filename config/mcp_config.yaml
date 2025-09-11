@@ -1,5 +1,15 @@
-# Living Twin Simulation - MCP Configuration
+# Aprio Living Twin - MCP Configuration
 # Configuration for Model Context Protocol and local LLM integration
+# Production deployment: dev.aprio.one
+
+# Domain configuration (single domain, path-based routing)
+domain:
+  name: aprio.one
+  production_url: https://dev.aprio.one
+  api_url: https://dev.aprio.one/api
+  web_url: https://dev.aprio.one
+  health_url: https://dev.aprio.one/api/healthz
+  docs_url: https://dev.aprio.one/api/docs
 
 mcp:
   server:

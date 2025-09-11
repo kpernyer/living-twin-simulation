@@ -2,7 +2,7 @@ services:
   # Ollama service for local LLM inference
   ollama:
     image: ollama/ollama:latest
-    container_name: living-twin-ollama
+    container_name: aprio-living-twin-ollama
     ports:
       - "11434:11434"
     volumes:
@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.simulation
-    container_name: living-twin-simulation
+    container_name: aprio-living-twin-simulation
     ports:
       - "8000:8000"
     volumes:
@@ -50,7 +50,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.web
-    container_name: living-twin-web
+    container_name: aprio-living-twin-web
     ports:
       - "3000:3000"
     volumes:
@@ -59,6 +59,9 @@ services:
     environment:
       - SIMULATION_API_URL=http://simulation:8000
       - NODE_ENV=production
+      - NEXT_PUBLIC_DOMAIN=aprio.one
+      - NEXT_PUBLIC_APP_URL=https://dev.aprio.one
+      - NEXT_PUBLIC_API_URL=https://dev.aprio.one/api
     depends_on:
       simulation:
         condition: service_healthy

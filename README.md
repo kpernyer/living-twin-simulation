@@ -1,6 +1,12 @@
-# Living Twin Simulation Engine
+# Aprio Living Twin Simulation Engine
 
-A sophisticated organizational behavior simulation system for testing communication patterns, decision-making processes, and organizational dynamics.
+A sophisticated organizational intelligence platform that creates a "Living Twin" of your company's strategic operations. Deploy at **dev.aprio.one** for executive-grade AI-assisted decision making.
+
+## 🌐 Production Deployment
+
+**Live at**: https://dev.aprio.one  
+**API**: https://api.aprio.one  
+**Domain**: aprio.one
 
 ## 🎯 Overview
 
@@ -333,7 +339,47 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 docker-compose -f docker-compose.yml up -d --build
 ```
 
-## 🚀 Quick Start
+## 🚀 Production Deployment
+
+### Deploy to GCP + Firebase (dev.aprio.one)
+
+```bash
+# Clone and setup
+git clone https://github.com/kpernyer/living-twin-simulation.git
+cd living-twin-simulation
+
+# Set your ElevenLabs API key
+export ELEVENLABS_API_KEY=your-key-here
+
+# Deploy to GCP + Firebase
+./scripts/deploy-gcp.sh
+```
+
+**Your platform will be available at:**
+- **Web App**: https://dev.aprio.one
+- **API**: https://dev.aprio.one/api
+- **Health Check**: https://dev.aprio.one/api/healthz
+- **API Docs**: https://dev.aprio.one/api/docs
+
+### GCP + Firebase Architecture
+
+The platform uses **Google Cloud Platform** with:
+- **Firebase Hosting** - Static Next.js web app with CDN
+- **Google Cloud Run** - Containerized Python API backend  
+- **Path-based routing** - Firebase rewrites `/api/*` to Cloud Run
+- **Automatic SSL** - Managed by Google Cloud
+- **Global CDN** - Firebase Hosting edge locations
+
+### Alternative Docker Deployment
+
+For self-hosted deployment without GCP:
+
+```bash
+# Deploy with Docker (no Traefik)
+./scripts/deploy-prod.sh
+```
+
+## 🚀 Local Development
 
 ### Installation
 

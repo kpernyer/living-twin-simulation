@@ -561,3 +561,10 @@ class OrganizationalTwin:
     
     created_at: datetime = field(default_factory=datetime.now)
     last_updated: datetime = field(default_factory=datetime.now)
+
+
+# Backward compatibility aliases for existing code
+SimulationAgent = OrganizationalMember
+AgentState = OrganizationalMemberState
+PriorityCommunication = StrategicCommunication
+AgentMemory = OrganizationalMemberMemory
