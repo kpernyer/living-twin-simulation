@@ -105,7 +105,7 @@ class EscalationManager:
         
         # Create escalated communication
         escalated_comm = PriorityCommunication(
-            type=CommunicationType.DIRECT_ORDER,
+            type=CommunicationType.ORDER,
             sender_id=original_communication.sender_id,
             recipient_ids=non_responsive_recipients,
             subject=f"URGENT: {original_communication.subject}",

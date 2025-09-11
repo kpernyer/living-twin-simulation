@@ -77,7 +77,7 @@ class PersonalityProfile:
     """Personality profile defining agent behavior patterns."""
     traits: Dict[PersonalityTrait, float] = field(default_factory=dict)
     
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         # Ensure all traits have values between 0.0 and 1.0
         for trait in PersonalityTrait:
             if trait not in self.traits:
@@ -119,9 +119,9 @@ class OrganizationalMember:
     id: str = field(default_factory=lambda: str(uuid4()))
     email: str = ""
     name: str = ""
-    personality: PersonalityProfile = field(default_factory=PersonalityProfile)
-    professional: ProfessionalProfile = field(default_factory=ProfessionalProfile)
-    memory: OrganizationalMemberMemory = field(default_factory=OrganizationalMemberMemory)
+    personality: PersonalityProfile = field(default_factory=lambda: PersonalityProfile())
+    professional: ProfessionalProfile = field(default_factory=lambda: ProfessionalProfile())
+    memory: OrganizationalMemberMemory = field(default_factory=lambda: OrganizationalMemberMemory())
     current_state: OrganizationalMemberState = OrganizationalMemberState.AVAILABLE
     organization_id: str = ""
     created_at: datetime = field(default_factory=datetime.now)
@@ -135,7 +135,7 @@ class OrganizationalMember:
         workload_sensitivity = self.personality.get_trait(PersonalityTrait.WORKLOAD_SENSITIVITY)
         
         # Adjust based on communication type
-        if communication.type == CommunicationType.DIRECT_ORDER:
+        if communication.type == CommunicationType.ORDER:
             probabilities[ResponseType.TAKE_ACTION] = 0.7 + (authority_response * 0.25)
             probabilities[ResponseType.SEEK_CLARIFICATION] = 0.2 - (authority_response * 0.1)
             probabilities[ResponseType.IGNORE] = 0.1 - (authority_response * 0.05)

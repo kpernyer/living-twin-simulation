@@ -5,6 +5,6 @@ FastAPI-based REST API with OpenAPI/Swagger documentation and Pydantic models
 for type-safe interactions with the simulation engine.
 """
 
-from .main import app
+from .simple_main import app
 
 __all__ = ["app"]

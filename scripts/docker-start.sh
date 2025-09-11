@@ -24,6 +24,9 @@ else
     echo "✅ Model already available"
 fi
 
+# Add the src directory to Python path
+export PYTHONPATH="/app/src:$PYTHONPATH"
+
 # Start the simulation API server
 echo "🌐 Starting simulation API server..."
-exec python -m uvicorn living_twin_simulation.api.main:app --host 0.0.0.0 --port 8000 --reload
+exec python -m uvicorn living_twin_simulation.api.simple_main:app --host 0.0.0.0 --port 8000 --reload

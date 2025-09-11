@@ -17,11 +17,11 @@ RUN pnpm install --frozen-lockfile
 # Copy web application
 COPY web/ ./
 
-# Build the application
-RUN pnpm run build
+# Skip build for development mode - will be done at runtime
+# RUN pnpm run build
 
 # Expose port
 EXPOSE 3000
 
-# Start the application
-CMD ["pnpm", "start"]
+# Start the application in development mode
+CMD ["pnpm", "dev"]

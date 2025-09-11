@@ -184,7 +184,7 @@ export default function ContextSetup() {
           name: emp.name,
           role: emp.role,
           department: emp.department,
-          level: emp.level,
+          level: emp.seniority_level,
           personality_traits: [
             'risk_tolerance',
             'authority_response', 
@@ -526,7 +526,7 @@ Make it realistic and ensure ALL fields are properly filled.`;
       name: emp.name || `Employee ${index + 1}`,
       role: emp.role || 'Employee',
       department: emp.department || 'General',
-      level: emp.level || 'Mid',
+      level: emp.seniority_level || 'Mid',
       email: emp.email || `${emp.name?.toLowerCase().replace(/\s+/g, '.')}@${validatedOrg.id}.com`,
       personality_traits: {
         risk_tolerance: emp.personality_traits?.risk_tolerance || 0.5,
@@ -601,7 +601,7 @@ Make it realistic and ensure ALL fields are properly filled.`;
           name: emp.name,
           role: emp.role,
           department: emp.department,
-          level: emp.level,
+          level: emp.seniority_level,
           personality_traits: [
             'risk_tolerance',
             'authority_response', 
@@ -704,7 +704,11 @@ Make it realistic and ensure ALL fields are properly filled.`;
     }
   };
 
-  const getLevelColor = (level: string) => {
+  const getLevelColor = (level: string | undefined) => {
+    // Handle undefined level values safely - Updated for seniority_level fix
+    if (!level) {
+      return 'bg-gray-100 text-gray-800';
+    }
     switch (level.toLowerCase()) {
       case 'c-level':
         return 'bg-purple-100 text-purple-800';
@@ -725,7 +729,10 @@ Make it realistic and ensure ALL fields are properly filled.`;
     }
   };
 
-  const getDepartmentColor = (department: string) => {
+  const getDepartmentColor = (department: string | undefined) => {
+    if (!department) {
+      return 'bg-gray-100 text-gray-800';
+    }
     switch (department.toLowerCase()) {
       case 'technology':
         return 'bg-blue-50 border-blue-200';
@@ -915,7 +922,7 @@ Make it realistic and ensure ALL fields are properly filled.`;
                       <span className="font-medium">Employees:</span> {orgInfo.employee_count}
                     </div>
                     <div>
-                      <span className="font-medium">Goals:</span> {orgInfo.strategic_goals.length}
+                      <span className="font-medium">Goals:</span> {orgInfo.strategic_goals?.length || 0}
                     </div>
                   </div>
                 </div>
@@ -957,8 +964,8 @@ Make it realistic and ensure ALL fields are properly filled.`;
                       <h3 className="font-semibold text-gray-900">{actingAs.name}</h3>
                       <p className="text-sm text-gray-600">{actingAs.role}</p>
                     </div>
-                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${getLevelColor(actingAs.level)}`}>
-                      {actingAs.level}
+                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${getLevelColor(actingAs.seniority_level)}`}>
+                      {actingAs.seniority_level}
                     </span>
                   </div>
                   <div className={`p-3 rounded-lg border ${getDepartmentColor(actingAs.department)}`}>
@@ -998,8 +1005,8 @@ Make it realistic and ensure ALL fields are properly filled.`;
                       <h4 className="font-medium text-gray-900 text-sm">{employee.name}</h4>
                       <p className="text-xs text-gray-600">{employee.role}</p>
                     </div>
-                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${getLevelColor(employee.level)}`}>
-                      {employee.level}
+                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${getLevelColor(employee.seniority_level)}`}>
+                      {employee.seniority_level}
                     </span>
                   </div>
                   <div className="text-xs text-gray-500">{employee.department}</div>

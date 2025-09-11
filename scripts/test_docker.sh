@@ -41,7 +41,7 @@ fi
 
 # Test 2: Build test image
 print_status "Building test Docker image..."
-if docker-compose -f docker-compose.test.yml build; then
+if docker-compose -f docker/compose/docker-compose.test.yml build; then
     print_success "Test Docker image built successfully"
 else
     print_error "Failed to build test Docker image"
@@ -50,7 +50,7 @@ fi
 
 # Test 3: Run test container
 print_status "Starting test container..."
-docker-compose -f docker-compose.test.yml up -d test-simulation
+docker-compose -f docker/compose/docker-compose.test.yml up -d test-simulation
 
 # Wait for container to start
 sleep 5
@@ -60,7 +60,7 @@ if docker ps | grep -q "living-twin-test"; then
     print_success "Test container is running"
 else
     print_error "Test container failed to start"
-    docker-compose -f docker-compose.test.yml logs test-simulation
+    docker-compose -f docker/compose/docker-compose.test.yml logs test-simulation
     exit 1
 fi
 
@@ -82,7 +82,7 @@ fi
 
 # Cleanup
 print_status "Cleaning up test container..."
-docker-compose -f docker-compose.test.yml down
+docker-compose -f docker/compose/docker-compose.test.yml down
 
 print_success "🎉 Docker test completed successfully!"
 echo ""

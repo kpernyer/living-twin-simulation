@@ -30,7 +30,7 @@ chmod 600 ./letsencrypt 2>/dev/null || true
 
 # Build and deploy services
 echo "🔧 Building and starting services..."
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+docker-compose -f docker/compose/docker-compose.yml -f docker/compose/docker-compose.prod.yml up -d --build
 
 # Wait for services to be healthy
 echo "⏳ Waiting for services to start..."
@@ -38,12 +38,12 @@ sleep 30
 
 # Check service health
 echo "🔍 Checking service health..."
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml ps
+docker-compose -f docker/compose/docker-compose.yml -f docker/compose/docker-compose.prod.yml ps
 
 # Show logs for verification
 echo "📋 Checking recent logs..."
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml logs --tail=10 web-interface
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml logs --tail=10 simulation
+docker-compose -f docker/compose/docker-compose.yml -f docker/compose/docker-compose.prod.yml logs --tail=10 web-interface
+docker-compose -f docker/compose/docker-compose.yml -f docker/compose/docker-compose.prod.yml logs --tail=10 simulation
 
 echo "✅ Deployment complete!"
 echo ""
@@ -55,7 +55,7 @@ echo "   API Docs:     https://dev.aprio.one/api/docs"
 echo "   Traefik:      https://traefik.aprio.one"
 echo ""
 echo "📊 To monitor logs:"
-echo "   docker-compose -f docker-compose.yml -f docker-compose.prod.yml logs -f"
+echo "   docker-compose -f docker/compose/docker-compose.yml -f docker/compose/docker-compose.prod.yml logs -f"
 echo ""
 echo "🛑 To stop services:"
-echo "   docker-compose -f docker-compose.yml -f docker-compose.prod.yml down"
+echo "   docker-compose -f docker/compose/docker-compose.yml -f docker/compose/docker-compose.prod.yml down"

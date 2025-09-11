@@ -407,15 +407,15 @@ You should respond authentically as this person would, considering:
             comm_type_map = {
                 "status_update": CommunicationType.STATUS_UPDATE,
                 "request_help": CommunicationType.REQUEST,
-                "provide_update": CommunicationType.INFORMATION_SHARING,
-                "escalate_issue": CommunicationType.ESCALATION
+                "provide_update": CommunicationType.RECOMMENDATION,
+                "escalate_issue": CommunicationType.CATCHBALL
             }
             
             return PriorityCommunication(
                 sender_id=agent.id,
                 recipient_id=recipient_id,
                 content=response_data["content"],
-                type=comm_type_map.get(response_data["communication_type"], CommunicationType.INFORMATION_SHARING),
+                type=comm_type_map.get(response_data["communication_type"], CommunicationType.RECOMMENDATION),
                 priority_level=response_data.get("priority", 3),
                 timestamp=datetime.now(),
                 metadata={

@@ -131,7 +131,7 @@ class CommunicationDistributor:
         plan[DistributionChannel.REAL_TIME_PUSH] = online_recipients
         
         # Handle offline users based on communication type
-        if communication.type in [CommunicationType.DIRECT_ORDER, CommunicationType.URGENT]:
+        if communication.type in [CommunicationType.ORDER, CommunicationType.URGENT]:
             # Critical communications use delegation chain for offline users
             plan[DistributionChannel.DELEGATION_CHAIN] = offline_recipients
         else:

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>API Connectivity Test</h1>
+    <div id="results"></div>
+    <button onclick="testAPI()">Test API</button>
+    
+    <script>
+        function log(message) {
+            document.getElementById('results').innerHTML += '<p>' + message + '</p>';
+        }
+        
+        async function testAPI() {
+            const results = document.getElementById('results');
+            results.innerHTML = '';
+            
+            // Test 1: Direct API call to localhost:8000
+            try {
+                log('Testing direct API call to localhost:8000...');
+                const response1 = await fetch('http://localhost:8000/status');
+                const data1 = await response1.json();
+                log('✅ Direct API call successful: ' + JSON.stringify(data1));
+            } catch (error) {
+                log('❌ Direct API call failed: ' + error.message);
+            }
+            
+            // Test 2: API call through Next.js proxy
+            try {
+                log('Testing API call through Next.js proxy...');
+                const response2 = await fetch('/api/status');
+                const data2 = await response2.json();
+                log('✅ Proxy API call successful: ' + JSON.stringify(data2));
+            } catch (error) {
+                log('❌ Proxy API call failed: ' + error.message);
+            }
+            
+            // Test 3: Test organizations endpoint
+            try {
+                log('Testing organizations endpoint...');
+                const response3 = await fetch('/api/organizations');
+                const data3 = await response3.json();
+                log('✅ Organizations call successful: ' + JSON.stringify(data3));
+            } catch (error) {
+                log('❌ Organizations call failed: ' + error.message);
+            }
+        }
+        
+        // Auto-run tests on page load
+        window.onload = testAPI;
+    </script>
+</body>
+</html>

@@ -12,27 +12,33 @@ export default function LivingTwinInterface() {
   const [hasSimulation, setHasSimulation] = useState(false);
 
   useEffect(() => {
-    checkSimulationStatus();
-  }, []);
+    const checkStatus = async () => {
+      try {
+        const response = await axios.get(`${API_BASE}/status`);
+        setHasSimulation(response.data.is_running);
+      } catch (error) {
+        console.error('Failed to fetch status:', error);
+        setHasSimulation(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const checkSimulationStatus = async () => {
-    try {
-      const response = await axios.get(`${API_BASE}/status`);
-      setHasSimulation(response.data.is_running);
-    } catch (error) {
-      // If status endpoint fails, assume no simulation is running
-      setHasSimulation(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    checkStatus();
+  }, []);
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading simulation status...</p>
+          <p className="text-gray-600">Checking simulation status...</p>
+          <button 
+            onClick={() => {setIsLoading(false); setHasSimulation(false);}} 
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Skip to Setup
+          </button>
         </div>
       </div>
     );

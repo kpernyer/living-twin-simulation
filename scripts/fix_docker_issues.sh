@@ -49,7 +49,7 @@ if ! docker pull hello-world:latest > /dev/null 2>&1; then
     echo "  1. Check your internet connection"
     echo "  2. Restart Docker Desktop"
     echo "  3. Try using a VPN if you're behind a corporate firewall"
-    echo "  4. Use the simple test setup: docker-compose -f docker-compose.simple.yml up"
+    echo "  4. Use the simple test setup: docker-compose -f docker/compose/docker-compose.simple.yml up"
 fi
 
 # Step 4: Try building with different base images
@@ -57,7 +57,7 @@ print_status "Testing alternative base images..."
 
 # Test with different Python base image
 print_status "Testing Python base image..."
-if docker build -f Dockerfile.test -t living-twin-test .; then
+if docker build -f docker/Dockerfile.test -t living-twin-test .; then
     print_success "Test Dockerfile builds successfully"
 else
     print_warning "Test Dockerfile failed. Trying with different base image..."
@@ -93,9 +93,9 @@ EXPOSE 8000
 CMD ["python", "-m", "uvicorn", "living_twin_simulation.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
 EOF
 
-    if docker build -f Dockerfile.test.backup -t living-twin-test-backup .; then
+    if docker build -f docker/Dockerfile.test.backup -t living-twin-test-backup .; then
         print_success "Backup Dockerfile builds successfully"
-        print_status "You can use: docker-compose -f docker-compose.simple.yml up"
+        print_status "You can use: docker-compose -f docker/compose/docker-compose.simple.yml up"
     else
         print_error "All Docker builds failed. This might be a network or Docker configuration issue."
     fi
@@ -111,11 +111,11 @@ echo "  uv run python -m uvicorn living_twin_simulation.api.main:app --reload"
 
 echo ""
 print_warning "Option 2: Use simple Docker setup"
-echo "  docker-compose -f docker-compose.simple.yml up"
+echo "  docker-compose -f docker/compose/docker-compose.simple.yml up"
 
 echo ""
 print_warning "Option 3: Manual Docker build with retry"
-echo "  docker build --no-cache -f Dockerfile.test ."
+echo "  docker build --no-cache -f docker/Dockerfile.test ."
 
 echo ""
 print_success "Docker issue resolution complete!"

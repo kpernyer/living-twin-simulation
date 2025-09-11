@@ -20,15 +20,15 @@ services:
   # Simulation engine service
   simulation:
     build:
-      context: .
-      dockerfile: Dockerfile.simulation
+      context: ../..
+      dockerfile: docker/Dockerfile.simulation
     container_name: aprio-living-twin-simulation
     ports:
       - "8000:8000"
     volumes:
-      - ./config:/app/config
-      - ./data:/app/data
-      - ./logs:/app/logs
+      - ../../config:/app/config
+      - ../../data:/app/data
+      - ../../logs:/app/logs
     environment:
       - OLLAMA_HOST=http://ollama:11434
       - OLLAMA_MODEL=mistral:7b-instruct
@@ -36,8 +36,7 @@ services:
       - LOG_LEVEL=INFO
       - DEBUG=false
     depends_on:
-      ollama:
-        condition: service_healthy
+      - ollama
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
@@ -48,23 +47,23 @@ services:
   # Interactive web interface
   web-interface:
     build:
-      context: .
-      dockerfile: Dockerfile.web
+      context: ../..
+      dockerfile: docker/Dockerfile.web
     container_name: aprio-living-twin-web
     ports:
       - "3000:3000"
     volumes:
-      - ./web:/app/web
-      - ./data:/app/data:ro
+      - ../../web:/app/web
+      - ../../data:/app/data:ro
     environment:
       - SIMULATION_API_URL=http://simulation:8000
-      - NODE_ENV=production
+      - NEXT_PUBLIC_SIMULATION_API_URL=http://localhost:8000
+      - NODE_ENV=development
       - NEXT_PUBLIC_DOMAIN=aprio.one
       - NEXT_PUBLIC_APP_URL=https://dev.aprio.one
       - NEXT_PUBLIC_API_URL=https://dev.aprio.one/api
     depends_on:
-      simulation:
-        condition: service_healthy
+      - simulation
     restart: unless-stopped
 
 volumes:

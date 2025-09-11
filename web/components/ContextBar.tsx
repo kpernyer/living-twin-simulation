@@ -102,7 +102,10 @@ export default function ContextBar() {
     }
   };
 
-  const getLevelColor = (level: string) => {
+  const getLevelColor = (level: string | undefined) => {
+    if (!level) {
+      return 'bg-gray-100 text-gray-800';
+    }
     switch (level.toLowerCase()) {
       case 'c-level':
         return 'bg-purple-100 text-purple-800';
@@ -123,7 +126,10 @@ export default function ContextBar() {
     }
   };
 
-  const getDepartmentColor = (department: string) => {
+  const getDepartmentColor = (department: string | undefined) => {
+    if (!department) {
+      return 'bg-gray-50 border-gray-200';
+    }
     switch (department.toLowerCase()) {
       case 'technology':
         return 'bg-blue-50 border-blue-200';

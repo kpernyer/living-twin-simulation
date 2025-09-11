@@ -329,14 +329,14 @@ For development with hot reloading:
 
 ```bash
 # Use development overrides
-docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+docker-compose -f docker/compose/docker-compose.yml -f docker/compose/docker-compose.override.yml up -d
 ```
 
 ### Production Deployment
 
 ```bash
 # Build and run in production mode
-docker-compose -f docker-compose.yml up -d --build
+docker-compose -f docker/compose/docker-compose.yml up -d --build
 ```
 
 ## 🚀 Production Deployment

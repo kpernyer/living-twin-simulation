@@ -12,7 +12,7 @@ const nextConfig = {
         // Local development - standard Next.js
       }),
   env: {
-    NEXT_PUBLIC_SIMULATION_API_URL: process.env.SIMULATION_API_URL || 'http://localhost:8000',
+    NEXT_PUBLIC_SIMULATION_API_URL: process.env.NEXT_PUBLIC_SIMULATION_API_URL || process.env.SIMULATION_API_URL || 'http://localhost:8000',
   },
   // Domain configuration for aprio.one (Firebase Hosting + Cloud Run)
   async rewrites() {

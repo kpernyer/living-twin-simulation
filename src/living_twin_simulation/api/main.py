@@ -506,7 +506,7 @@ async def get_members_by_department(department: str):
         raise HTTPException(status_code=500, detail="Failed to fetch employees")
 
 @app.post("/communications", response_model=CommunicationResponse, tags=["Communications"])
-async def send_communication(communication: CommunicationRequest):
+async def send_communication(communication: StrategicCommunicationRequest):
     """
     Send a strategic communication to employees.
     

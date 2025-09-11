@@ -23,12 +23,12 @@ logger = logging.getLogger(__name__)
 class BehaviorEngine:
     """Engine that determines how agents behave and respond to communications."""
     
-    def __init__(self):
+    def __init__(self) -> None:
         self.response_generators = {
             ResponseType.IGNORE: self._generate_ignore_response,
             ResponseType.TAKE_ACTION: self._generate_action_response,
             ResponseType.SEEK_CLARIFICATION: self._generate_clarification_response,
-            ResponseType.PROVIDE_FEEDBACK: self._generate_feedback_response,
+            ResponseType.PROVIDE_WISDOM: self._generate_feedback_response,
             ResponseType.ESCALATE: self._generate_escalation_response,
             ResponseType.DELEGATE: self._generate_delegation_response,
         }
@@ -81,7 +81,7 @@ class BehaviorEngine:
             return random.random() < 0.6
         
         # Direct orders almost always get responses
-        if communication.type == CommunicationType.DIRECT_ORDER:
+        if communication.type == CommunicationType.ORDER:
             return random.random() < 0.95
         
         # Base response rate varies by personality
