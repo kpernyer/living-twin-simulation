@@ -8,6 +8,19 @@ A sophisticated organizational intelligence platform that creates a "Living Twin
 **API**: https://api.aprio.one  
 **Domain**: aprio.one
 
+## 🎯 System Architecture
+
+![System Architecture](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kpernyer/living-twin-simulation/main/docs/v0.1/system/system_architecture.puml)
+
+### Multi-Agent Simulation Platform
+
+- **Agent System**: Autonomous agents with personality-based behaviors and decision-making
+- **Simulation Engines**: Time acceleration, wisdom aggregation, escalation management
+- **Web Interface**: Next.js frontend with real-time simulation monitoring and controls
+- **CLI Tools**: Command-line simulation execution and configuration management
+
+📋 [**View Detailed Documentation**](docs/v0.1/README.md) | 🔍 [**System Analysis**](docs/v0.1/system/SYSTEM.md)
+
 ## 🎯 Overview
 
 The Living Twin Simulation Engine models realistic organizational behavior using AI agents with personality-based responses. It simulates:
