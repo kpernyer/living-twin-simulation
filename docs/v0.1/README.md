@@ -13,28 +13,28 @@ This documentation represents the initial system architecture analysis of the Li
 ### System Architecture
 The overall simulation system with agents, engines, and web interface:
 
-![System Architecture](./system/system_architecture.png)
+![System Architecture](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kpernyer/living-twin-simulation/main/docs/v0.1/system/system_architecture.puml)
 
 [View PlantUML Source](./system/system_architecture.puml)
 
 ### Agent Architecture
 Multi-agent system design and agent types:
 
-![Agent Architecture](./system/agent_architecture.png)
+![Agent Architecture](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kpernyer/living-twin-simulation/main/docs/v0.1/system/agent_architecture.puml)
 
 [View PlantUML Source](./system/agent_architecture.puml)
 
 ### Simulation Flow
 Execution flow from initialization to completion:
 
-![Simulation Flow](./system/simulation_flow.png)
+![Simulation Flow](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kpernyer/living-twin-simulation/main/docs/v0.1/system/simulation_flow.puml)
 
 [View PlantUML Source](./system/simulation_flow.puml)
 
 ### Agent Interactions
 Communication patterns between agents:
 
-![Agent Interactions](./system/agent_interactions.png)
+![Agent Interactions](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kpernyer/living-twin-simulation/main/docs/v0.1/system/agent_interactions.puml)
 
 [View PlantUML Source](./system/agent_interactions.puml)
 

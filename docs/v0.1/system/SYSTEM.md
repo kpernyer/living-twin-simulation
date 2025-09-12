@@ -6,11 +6,11 @@ Generated on: 2025-09-12T12:15:45.358041
 
 ## System Architecture
 
-![System Architecture](./system_architecture.png)
+![System Architecture](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kpernyer/living-twin-simulation/main/docs/v0.1/system/system_architecture.puml)
 
 ## Agent Architecture
 
-![Agent Architecture](./agent_architecture.png)
+![Agent Architecture](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kpernyer/living-twin-simulation/main/docs/v0.1/system/agent_architecture.puml)
 
 ### Discovered Agent Types (3 types)
 - **AgentFactory**: Autonomous simulation agent
@@ -19,11 +19,11 @@ Generated on: 2025-09-12T12:15:45.358041
 
 ## Simulation Flow
 
-![Simulation Flow](./simulation_flow.png)
+![Simulation Flow](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kpernyer/living-twin-simulation/main/docs/v0.1/system/simulation_flow.puml)
 
 ## Agent Interactions
 
-![Agent Interactions](./agent_interactions.png)
+![Agent Interactions](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kpernyer/living-twin-simulation/main/docs/v0.1/system/agent_interactions.puml)
 
 ### System Components (51 total)
 
