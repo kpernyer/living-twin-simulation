@@ -1,0 +1,27 @@
+@startuml Living Twin Simulation - Agent Interactions
+title Agent Communication Patterns - Auto Generated
+
+participant "AgentFactory" as AgentFactory
+participant "MCPAgentEngine" as MCPAgentEngine
+participant "BehaviorEngine" as BehaviorEngine
+participant "Simulation Engine" as SimulationEngine
+
+== Agent Initialization ==
+SimulationEngine -> AgentFactory : initialize()
+SimulationEngine -> MCPAgentEngine : initialize()
+SimulationEngine -> BehaviorEngine : initialize()
+
+== Agent Interactions ==
+AgentFactory -> MCPAgentEngine : message()
+MCPAgentEngine -> AgentFactory : response()
+AgentFactory -> BehaviorEngine : message()
+BehaviorEngine -> AgentFactory : response()
+MCPAgentEngine -> BehaviorEngine : message()
+BehaviorEngine -> MCPAgentEngine : response()
+
+== Simulation Updates ==
+AgentFactory -> SimulationEngine : update_state()
+MCPAgentEngine -> SimulationEngine : update_state()
+BehaviorEngine -> SimulationEngine : update_state()
+
+@enduml

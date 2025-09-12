@@ -1,0 +1,123 @@
+@startuml Living Twin Simulation - System Architecture
+!theme plain
+title System Architecture Overview - Auto Generated
+
+package "CLI Interface" {
+  [simulation_cli]
+}
+
+package "Web Interface" {
+  package "Next.js Frontend" {
+    [useSimulationContext]
+    [IPhoneDemo]
+    [ViewSlider]
+    [loadEmployees]
+    [checkStatus]
+  }
+}
+
+package "Simulation Core" {
+  package "Engines" {
+    [ConfigurationLoader] as ConfigurationLoader_engine
+    [EscalationManager] as EscalationManager_engine
+    [WisdomEngine] as WisdomEngine_engine
+    [TimeEngine] as TimeEngine_engine
+    [SimulationScheduler] as SimulationScheduler_engine
+    [SimulationEngine] as SimulationEngine_engine
+    [Employee] as Employee_engine
+    [Organization] as Organization_engine
+    [HealthResponse] as HealthResponse_engine
+    [SimulationStatus] as SimulationStatus_engine
+    [SimulationStartRequest] as SimulationStartRequest_engine
+    [SimulationStartResponse] as SimulationStartResponse_engine
+    [OrganizationalMemberResponse] as OrganizationalMemberResponse_engine
+    [IntelligenceAgentResponse] as IntelligenceAgentResponse_engine
+    [MarketIntelligenceResponse] as MarketIntelligenceResponse_engine
+    [CatchballAgentResponse] as CatchballAgentResponse_engine
+    [WisdomAgentResponse] as WisdomAgentResponse_engine
+    [TruthAgentResponse] as TruthAgentResponse_engine
+    [GossipAgentResponse] as GossipAgentResponse_engine
+    [OrganizationalTwinResponse] as OrganizationalTwinResponse_engine
+    [StrategicCommunicationRequest] as StrategicCommunicationRequest_engine
+    [CommunicationResponse] as CommunicationResponse_engine
+    [SimulationStatus] as SimulationStatus_engine
+    [WisdomAnalysis] as WisdomAnalysis_engine
+    [SimulationParameters] as SimulationParameters_engine
+    [OrganizationInfo] as OrganizationInfo_engine
+    [Config] as Config_engine
+    [Config] as Config_engine
+    [Config] as Config_engine
+    [Config] as Config_engine
+    [Config] as Config_engine
+    [DeliveryStatus] as DeliveryStatus_engine
+    [ActionStatus] as ActionStatus_engine
+    [CommunicationTracker] as CommunicationTracker_engine
+    [DistributionChannel] as DistributionChannel_engine
+    [CommunicationDistributor] as CommunicationDistributor_engine
+    [PersonalityTrait] as PersonalityTrait_engine
+    [CommunicationType] as CommunicationType_engine
+    [ResponseType] as ResponseType_engine
+    [OrganizationalMemberState] as OrganizationalMemberState_engine
+    [IntelligenceAgentType] as IntelligenceAgentType_engine
+    [StrategicPriority] as StrategicPriority_engine
+    [PersonalityProfile] as PersonalityProfile_engine
+    [ProfessionalProfile] as ProfessionalProfile_engine
+    [OrganizationalMemberMemory] as OrganizationalMemberMemory_engine
+    [OrganizationalMember] as OrganizationalMember_engine
+    [StrategicCommunication] as StrategicCommunication_engine
+    [AgentResponse] as AgentResponse_engine
+    [ConsultationRequest] as ConsultationRequest_engine
+    [ConsultationFeedback] as ConsultationFeedback_engine
+    [SimulationState] as SimulationState_engine
+    [SimulationEvent] as SimulationEvent_engine
+    [OrganizationalMetrics] as OrganizationalMetrics_engine
+    [CatchballCommunication] as CatchballCommunication_engine
+    [CatchballFeedback] as CatchballFeedback_engine
+    [WisdomOfTheCrowd] as WisdomOfTheCrowd_engine
+    [PriorityConflict] as PriorityConflict_engine
+    [IntelligenceAgent] as IntelligenceAgent_engine
+    [MarketIntelligenceAgent] as MarketIntelligenceAgent_engine
+    [CatchballAgent] as CatchballAgent_engine
+    [WisdomAgent] as WisdomAgent_engine
+    [TruthAgent] as TruthAgent_engine
+    [GossipAgent] as GossipAgent_engine
+    [OrganizationalTwin] as OrganizationalTwin_engine
+  }
+  package "Agents" {
+    [AgentFactory] as AgentFactory_agent
+    [MCPAgentEngine] as MCPAgentEngine_agent
+    [BehaviorEngine] as BehaviorEngine_agent
+  }
+}
+
+package "Configuration" {
+  [mcp_config]
+  [tech_innovators]
+  [acme_corp]
+}
+
+package "Technology Stack" {
+  package "Python" {
+    [AsyncIO] as AsyncIO
+    [FastAPI] as FastAPI
+    [PyTest] as PyTest
+    [Pydantic] as Pydantic
+    [Uvicorn] as Uvicorn
+  }
+  package "Frontend" {
+    [Next.js] as Nextjs
+    [React] as React
+    [React Types] as ReactTypes
+    [Tailwind CSS] as TailwindCSS
+    [TypeScript] as TypeScript
+  }
+}
+
+' System relationships
+[simulation_cli] --> [__init___engine]
+[SimulationContext] --> [__init___engine] : WebSocket
+[__init___engine] --> [AgentFactory_agent]
+[__init___engine] --> [MCPAgentEngine_agent]
+[__init___engine] --> [BehaviorEngine_agent]
+
+@enduml

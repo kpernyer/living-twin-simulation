@@ -1,0 +1,220 @@
+@startuml Living Twin Simulation - Agent Architecture
+!theme plain
+title Agent System Architecture - Auto Generated
+
+package "Agent Types" {
+  class AgentFactory {
+    +create_agent_from_employee()
+    +create_agents_from_organization()
+    +_extract_name_from_email()
+    +_determine_seniority_level()
+    +_create_personality_profile()
+    +... (6 more)
+  }
+  class BehaviorEngine {
+    +__init__()
+    +process_communication()
+    +_should_respond()
+    +_adjust_probabilities_for_context()
+    +_select_response_type()
+    +... (9 more)
+  }
+  class MCPAgentEngine {
+    +__init__()
+    +_create_persona_prompt()
+    +_describe_personality()
+    +_structure_ai_response()
+    +_find_recipient()
+  }
+}
+
+package "Simulation Engines" {
+  class ConfigurationLoader {
+    +__init__()
+    +load_organization()
+    +get_available_organizations()
+  }
+  class EscalationManager {
+    +__init__()
+    +check_for_escalations()
+    +_should_escalate()
+  }
+  class WisdomEngine {
+    +__init__()
+    +analyze_catchball_feedback()
+    +_analyze_response_patterns()
+  }
+  class TimeEngine {
+    +__init__()
+    +start()
+    +get_current_simulation_time()
+  }
+  class SimulationScheduler {
+    +__init__()
+    +schedule_event()
+    +schedule_delay()
+  }
+  class SimulationEngine {
+    +__init__()
+    +_generate_consultation_feedback()
+    +_on_time_tick()
+  }
+  class Employee {
+  }
+  class Organization {
+  }
+  class HealthResponse {
+  }
+  class SimulationStatus {
+  }
+  class SimulationStartRequest {
+  }
+  class SimulationStartResponse {
+  }
+  class OrganizationalMemberResponse {
+  }
+  class IntelligenceAgentResponse {
+  }
+  class MarketIntelligenceResponse {
+  }
+  class CatchballAgentResponse {
+  }
+  class WisdomAgentResponse {
+  }
+  class TruthAgentResponse {
+  }
+  class GossipAgentResponse {
+  }
+  class OrganizationalTwinResponse {
+  }
+  class StrategicCommunicationRequest {
+  }
+  class CommunicationResponse {
+  }
+  class SimulationStatus {
+  }
+  class WisdomAnalysis {
+  }
+  class SimulationParameters {
+  }
+  class OrganizationInfo {
+  }
+  class Config {
+  }
+  class Config {
+  }
+  class Config {
+  }
+  class Config {
+  }
+  class Config {
+  }
+  class DeliveryStatus {
+  }
+  class ActionStatus {
+  }
+  class CommunicationTracker {
+    +__init__()
+    +_calculate_real_time_metrics()
+  }
+  class DistributionChannel {
+  }
+  class CommunicationDistributor {
+    +__init__()
+    +_create_distribution_plan()
+    +_is_executive_broadcast()
+  }
+  class PersonalityTrait {
+  }
+  class CommunicationType {
+  }
+  class ResponseType {
+  }
+  class OrganizationalMemberState {
+  }
+  class IntelligenceAgentType {
+  }
+  class StrategicPriority {
+  }
+  class PersonalityProfile {
+    +__post_init__()
+    +get_trait()
+  }
+  class ProfessionalProfile {
+  }
+  class OrganizationalMemberMemory {
+  }
+  class OrganizationalMember {
+    +calculate_response_probability()
+  }
+  class StrategicCommunication {
+  }
+  class AgentResponse {
+  }
+  class ConsultationRequest {
+  }
+  class ConsultationFeedback {
+  }
+  class SimulationState {
+  }
+  class SimulationEvent {
+  }
+  class OrganizationalMetrics {
+  }
+  class CatchballCommunication {
+  }
+  class CatchballFeedback {
+  }
+  class WisdomOfTheCrowd {
+  }
+  class PriorityConflict {
+  }
+  class IntelligenceAgent {
+  }
+  class MarketIntelligenceAgent {
+  }
+  class CatchballAgent {
+  }
+  class WisdomAgent {
+  }
+  class TruthAgent {
+  }
+  class GossipAgent {
+  }
+  class OrganizationalTwin {
+  }
+}
+
+' Agent-Engine relationships
+ConfigurationLoader --> AgentFactory : manages
+ConfigurationLoader --> MCPAgentEngine : manages
+ConfigurationLoader --> BehaviorEngine : manages
+EscalationManager --> AgentFactory : manages
+EscalationManager --> MCPAgentEngine : manages
+EscalationManager --> BehaviorEngine : manages
+WisdomEngine --> AgentFactory : manages
+WisdomEngine --> MCPAgentEngine : manages
+WisdomEngine --> BehaviorEngine : manages
+TimeEngine --> AgentFactory : manages
+TimeEngine --> MCPAgentEngine : manages
+TimeEngine --> BehaviorEngine : manages
+SimulationEngine --> AgentFactory : manages
+SimulationEngine --> MCPAgentEngine : manages
+SimulationEngine --> BehaviorEngine : manages
+Employee --> AgentFactory : manages
+Employee --> MCPAgentEngine : manages
+Employee --> BehaviorEngine : manages
+OrganizationalMemberResponse --> AgentFactory : manages
+OrganizationalMemberResponse --> MCPAgentEngine : manages
+OrganizationalMemberResponse --> BehaviorEngine : manages
+DeliveryStatus --> AgentFactory : manages
+DeliveryStatus --> MCPAgentEngine : manages
+DeliveryStatus --> BehaviorEngine : manages
+DistributionChannel --> AgentFactory : manages
+DistributionChannel --> MCPAgentEngine : manages
+DistributionChannel --> BehaviorEngine : manages
+PersonalityTrait --> AgentFactory : manages
+PersonalityTrait --> MCPAgentEngine : manages
+PersonalityTrait --> BehaviorEngine : manages
+
+@enduml

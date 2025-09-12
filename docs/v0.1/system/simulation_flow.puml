@@ -1,0 +1,32 @@
+@startuml Living Twin Simulation - Simulation Flow
+title Simulation Execution Flow - Auto Generated
+
+actor User
+participant "CLI" as CLI
+participant "Web Interface" as Web
+participant "ConfigurationLoader" as ConfigurationLoader
+participant "EscalationManager" as EscalationManager
+participant "AgentFactory" as AgentFactory
+participant "MCPAgentEngine" as MCPAgentEngine
+participant "BehaviorEngine" as BehaviorEngine
+
+== Simulation Initialization ==
+User -> CLI : Start simulation
+CLI -> SimulationEngine : initialize()
+SimulationEngine -> SimulationEngine : load_config()
+SimulationEngine -> AgentFactory : create_agent()
+SimulationEngine -> MCPAgentEngine : create_agent()
+
+== Simulation Execution ==
+SimulationEngine -> SimulationEngine : start_simulation()
+AgentFactory -> MCPAgentEngine : interact()
+MCPAgentEngine -> AgentFactory : respond()
+SimulationEngine -> CLI : simulation_results
+CLI -> User : Display results
+
+== Web Interface ==
+User -> Web : View simulation
+Web -> Web : Real-time updates
+Web -> User : Display visualization
+
+@enduml
